@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Recipe Editor</title>
+
+  <!-- Link to external CSS file for layout and spacing -->
+  <link rel="stylesheet" href="recipeEditor.css" />
+</head>
+<body>
+  <h1>Recipe Editor</h1>
+
+  <!-- Main form for creating / editing a recipe -->
+  <form id="recipe-form">
+    <!-- ===== Basic info section ===== -->
+    <section id="basic-info">
+      <!-- Each field-row is one line: label + input/textarea -->
+      <div class="field-row">
+        <label for="coverImage">Cover Image URL:</label>
+        <input type="text" id="coverImage" />
+      </div>
+
+      <div class="field-row">
+        <label for="title">Title:</label>
+        <input type="text" id="title" />
+      </div>
+
+      <div class="field-row">
+        <label for="foodName">Food Name:</label>
+        <input type="text" id="foodName" />
+      </div>
+
+      <div class="field-row">
+        <label for="description">Description:</label>
+        <!-- Textarea also stays in the same row with the label -->
+        <textarea id="description" rows="3"></textarea>
+      </div>
+
+      <div class="field-row">
+        <label for="prepTime">Prep Time (min):</label>
+        <input type="number" id="prepTime" min="0" />
+      </div>
+
+      <div class="field-row">
+        <label for="cookTime">Cook Time (min):</label>
+        <input type="number" id="cookTime" min="0" />
+      </div>
+
+      <div class="field-row">
+        <label for="servings">Servings:</label>
+        <input type="number" id="servings" min="1" />
+      </div>
+    </section>
+
+    <!-- ===== Ingredients section ===== -->
+    <section id="ingredients-section">
+      <h2>Ingredients</h2>
+
+      <!-- Simple header row for the ingredients table -->
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Qty</th>
+            <th>Unit</th>
+            <th></th> <!-- column for delete button -->
+          </tr>
+        </thead>
+        <tbody id="ingredients-body">
+          <!-- Ingredient rows will be added dynamically by JS -->
+        </tbody>
+      </table>
+
+      <!-- Button to add a new ingredient row -->
+      <button type="button" id="add-ingredient">+ Add Ingredient</button>
+    </section>
+
+    <!-- ===== Instructions section ===== -->
+    <section id="instructions-section">
+      <h2>Instructions</h2>
+
+      <!-- Ordered list for steps; items added dynamically by JS -->
+      <ol id="steps-list"></ol>
+
+      <!-- Button to add a new instruction step -->
+      <button type="button" id="add-step">+ Add Step</button>
+    </section>
+
+    <!-- Final submit button to save the recipe -->
+    <button type="submit" id="save-recipe">Save Recipe</button>
+  </form>
+
+  <!-- Global data objects: must be loaded before page logic -->
+  <script src="localData.js"></script>
+  <script src="recipe.js"></script>
+  <script src="sessionData.js"></script>
+
+  <!-- Script that contains all Recipe Editor logic -->
+  <script src="recipeEditor.js"></script>
+</body>
+</html>
