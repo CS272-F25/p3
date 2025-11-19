@@ -10,6 +10,8 @@ recipe={
     ingredients:[],
     instructions:[],
     tags:[], //list of strings
+    favorite: false,
+    rating:undefined, //integer
 }
 
 ingredient={
