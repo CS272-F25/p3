@@ -1,0 +1,400 @@
+html {
+  width: 100%;
+  --clr-light-a0: #ffffff;
+  --clr-dark-a0: #000000;
+  --clr-surface-a0: #121212;
+  --clr-surface-a10: #282828;
+  --clr-surface-a20: #3f3f3f;
+  --clr-surface-a30: #575757;
+  --clr-surface-a40: #717171;
+  --clr-surface-a50: #8b8b8b;
+
+  --clr-text-primary: #a9a9a9;
+  --clr-text-secondary: #e6e6e6;
+  --clr-accent-green: #53ff64;
+  --clr-accent-orange: #ffbb3e;
+  --clr-accent-cyan: #73ffff;
+  --clr-accent-blue: #45f3ff;
+  --clr-accent-yellow: #ffd700;
+  --clr-accent-red: #9c2121;
+  --clr-card-green: rgb(98, 184, 98);
+  --clr-card-orange: orange;
+  --clr-card-teal: rgb(93, 196, 161);
+  --clr-shadow-dark: rgba(0, 0, 0, 0.2);
+  --clr-text-shadow: rgba(230, 230, 230, 0.5);
+  --clr-btn-teal: rgb(108, 219, 182);
+  --clr-delete-btn-hover: #dad8d8;
+  --clr-rating-default: #ddd;
+}
+
+body {
+  margin: 0;
+  background-color: var(--clr-surface-a0);
+  color: var(--clr-text-primary);
+}
+
+div h3 {
+  margin: 0;
+  padding: 0;
+}
+
+h3:not([class="list-title"]) {
+  font-size: 16px;
+}
+
+p {
+  margin: 0 0;
+}
+
+input,
+textarea,
+fieldset {
+  border: none;
+  font-size: 20px;
+  color: var(--clr-text-secondary);
+  field-sizing: content;
+  resize: none;
+  font-family: "Inter", "Roboto", sans-serif;
+  background-color: var(--clr-surface-a10);
+  padding: 2px;
+  transition: all 0.3s ease;
+}
+
+input:hover,
+textarea:hover {
+  color: var(--clr-light-a0);
+  text-shadow: 0 0 4px var(--clr-text-shadow);
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-bottom: 2px solid var(--clr-accent-blue);
+}
+
+.container {
+  width: 65%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.flex {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.flex-space-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#left-panel {
+  flex: 1.4;
+}
+
+#right-panel {
+  flex: 1;
+  display: flex;
+  justify-content: right;
+  margin-bottom: 10px;
+}
+
+#recipe-cover {
+  width: 100%;
+  height: 100%;
+}
+
+#recipe-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#recipe-img-upload {
+  display: none;
+}
+
+.editor-card,
+.title-card {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.editor-card {
+  display: flex;
+  flex-direction: row;
+  transition: all 0.4s;
+}
+
+#left-panel .editor-card:hover {
+  transform: scale(1.03);
+  box-shadow: -2px 4px 3px var(--clr-accent-green);
+}
+
+#left-panel .editor-card:hover .card-padding {
+  background-color: var(--clr-accent-green);
+}
+
+#ingredient-list .editor-card:hover {
+  transform: scale(1.03);
+  box-shadow: -2px 4px 3px var(--clr-accent-orange);
+}
+
+#ingredient-list .editor-card:hover .card-padding {
+  background-color: var(--clr-accent-orange);
+}
+
+#instruction-list .editor-card:hover {
+  transform: scale(1.03);
+  box-shadow: -2px 4px 3px var(--clr-accent-cyan);
+}
+
+#instruction-list .editor-card:hover .card-padding {
+  background-color: var(--clr-accent-cyan);
+}
+
+#left-panel .editor-card {
+  width: 100%;
+}
+
+.card-padding {
+  width: 7px;
+  background-color: var(--clr-card-green);
+}
+
+#left-list {
+  flex: 1.4;
+}
+
+.middle-empty-space {
+  width: 2%;
+}
+
+#right-list {
+  flex: 1;
+}
+
+#recipe-ingredients .editor-card .card-padding {
+  background-color: var(--clr-card-orange);
+}
+
+#recipe-instructions .editor-card .card-padding {
+  background-color: var(--clr-card-teal);
+}
+
+.card-content {
+  flex: 1;
+  background-color: var(--clr-surface-a10);
+  padding: 8px 15px 8px 15px;
+}
+
+.list-title {
+  color: var(--clr-light-a0);
+}
+
+.title-card-padding {
+  padding: 8px 15px 8px 15px;
+}
+
+#tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.recipe-tag {
+  position: relative;
+}
+
+.tag-input {
+  position: relative;
+  height: 30px;
+  background-color: var(--clr-surface-a30);
+  color: var(--clr-light-a0);
+  border-radius: 10px;
+  padding: 4px 10px;
+  text-align: center;
+}
+
+.delete-tag-btn::before {
+  content: "×";
+}
+
+.delete-tag-btn {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 18px;
+  height: 18px;
+  background-color: var(--clr-surface-a20);
+  color: var(--clr-light-a0);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+  box-shadow: 0 2px 4px var(--clr-shadow-dark);
+}
+
+.delete-tag-btn:hover {
+  transform: scale(1.1);
+  background-color: var(--clr-accent-red);
+  color: var(--clr-light-a0);
+}
+
+#time-flex {
+  display: flex;
+  gap: 10px;
+}
+
+#recipe-cook-time,
+#recipe-prep-time,
+#recipe-servings {
+  flex: 1;
+}
+
+#ingredient-title-btn {
+  background-color: var(--clr-card-orange);
+  box-sizing: border-box;
+}
+
+#instruction-title-btn {
+  background-color: var(--clr-btn-teal);
+  box-sizing: border-box;
+}
+
+.adding-btn::before {
+  content: "+";
+}
+
+.adding-btn {
+  font-size: 30px;
+  transition: transform 0.3s ease;
+  line-height: 1;
+}
+
+.adding-btn-light {
+  color: var(--clr-light-a0);
+}
+
+.adding-btn-dark {
+  color: var(--clr-surface-a50);
+}
+
+.adding-btn:hover {
+  transform: scale(1.2);
+}
+
+.delete-btn {
+  color: var(--clr-surface-a50);
+  font-size: 20px;
+  transition: transform 0.3s ease;
+  line-height: 1;
+}
+
+.delete-btn:hover {
+  transform: scale(1.2);
+  color: var(--clr-light-a0);
+}
+
+.delete-btn::before {
+  content: "×";
+}
+
+#display-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  gap: 8px;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+#display-rating input {
+  display: none;
+}
+
+#display-rating label {
+  font-size: 2rem;
+  color: var(--clr-rating-default);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+#display-rating label:hover,
+#display-rating label:hover ~ label {
+  color: var(--clr-accent-yellow);
+}
+
+#display-rating input[type="radio"]:checked ~ label {
+  color: var(--clr-accent-yellow);
+}
+
+#display-rating input[type="radio"]:checked + label {
+  color: var(--clr-accent-yellow);
+}
+
+.ingredient-name-input {
+  min-width: 150px;
+}
+
+#bottom-btn {
+  display: flex;
+  justify-content: end;
+}
+
+#save-btn {
+  font-family: inherit;
+  font-size: 20px;
+  background: var(--clr-surface-a10);
+  color: var(--clr-light-a0);
+  fill: var(--clr-surface-a50);
+  padding: 0.7em 1em;
+  padding-left: 0.9em;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  border-radius: 15px;
+  font-weight: 1000;
+  transition: all 0.5s ease-in-out;
+}
+
+#save-btn span {
+  display: block;
+  margin-left: 0.3em;
+  transition: all 0.3s ease-in-out;
+}
+
+#save-btn svg {
+  display: block;
+  transform-origin: center center;
+  transition: transform 0.3s ease-in-out;
+}
+
+#save-btn:hover {
+  background: var(--clr-surface-a40);
+}
+
+#save-btn:hover .svg-wrapper {
+  transform: scale(1.25);
+  transition: 0.5s linear;
+}
+
+#save-btn:hover svg {
+  transform: translateX(1.2em) scale(1.1);
+  fill: var(--clr-light-a0);
+}
+
+#save-btn:hover span {
+  opacity: 0;
+  transition: 0.5s linear;
+}
+
+#save-btn:active {
+  transform: scale(0.95);
+}
