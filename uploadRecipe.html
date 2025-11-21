@@ -1,50 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <!-- Let the page scale correctly on phones -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Upload Recipe - Recipe Manager</title>
+    <meta charset="UTF-8"/>
+    <!-- Let the page scale correctly on phones -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Upload Recipe - Recipe Manager</title>
 
-  <!-- Apply global CSS -->
-  <link rel="stylesheet" href="styles.css" />
+    <!-- Apply global CSS -->
+    <link rel="stylesheet" type="text/css" href="./global.css">
+    <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-  <!-- Main wrapper: matches .page-wrapper in styles.css -->
-  <div class="page-wrapper">
+<!-- Main wrapper: matches .page-wrapper in styles.css -->
+<div class="page-wrapper">
 
     <!-- Page header -->
     <header>
-      <h1>Upload Recipe</h1>
-      <p>
-        Use this page to import your recipe from a text file into Recipe Manager.
-      </p>
+        <h1>Upload Recipe</h1>
+        <p>
+            Use this page to import your recipe from a text file into Recipe Manager.
+        </p>
     </header>
 
     <!-- Main content -->
     <main>
 
-      <!-- Instruction block -->
-      <section class="card">
-        <h2>Upload Instructions</h2>
+        <!-- Instruction block -->
+        <section class="card">
+            <h2>Upload Instructions</h2>
 
-        <h3>Check Before Uploading The File: </h3>
-        <ul>
-          <li><strong>Uploaded file must be <code>.txt</code>.</strong></li>
-          <li>Only one recipe per file.</li>
-          <li>The file must follow the required recipe text format shown below.</li>
-        </ul>
+            <h3>Check Before Uploading The File: </h3>
+            <ul>
+                <li><strong>Uploaded file must be <code>.txt</code>.</strong></li>
+                <li>Only one recipe per file.</li>
+                <li>The file must follow the required recipe text format shown below.</li>
+            </ul>
 
-        <h3>Required Format for The .txt File: </h3>
-        <p>
-          The text file is divided into three parts:
-          basic information, an <strong>Ingredients</strong> section,
-          and an <strong>Instructions</strong> section.
-        </p>
+            <h3>Required Format for The .txt File: </h3>
+            <p>
+                The text file is divided into three parts:
+                basic information, an <strong>Ingredients</strong> section,
+                and an <strong>Instructions</strong> section.
+            </p>
 
-        <!-- Example format shown as code -->
-         <h4>Example: </h4>
-        <pre>
+            <!-- Example format shown as code -->
+            <h4>Example: </h4>
+            <pre>
 Title: Tomato Egg Stir Fry
 FoodName: Tomato Egg Stir Fry
 Description: A classic Chinese home-style dish.
@@ -73,65 +74,66 @@ Return the eggs to the pan and stir-fry everything together.
 Add the rest of the soy sauce and stir to combine.
         </pre>
 
-        <h3>Line-by-line Explanation: </h3>
-        <ul>
-          <li><code>Title:</code> → recipe title (stored in <code>recipe.title</code>)</li>
-          <li><code>FoodName:</code> → full name of the dish (<code>recipe.foodName</code>)</li>
-          <li><code>Description:</code> → short description (<code>recipe.description</code>)</li>
-          <li><code>PrepTime:</code> → preparation time in minutes (<code>recipe.prepTime</code>)</li>
-          <li><code>CookTime:</code> → cooking time in minutes (<code>recipe.cookTime</code>)</li>
-          <li><code>Servings:</code> → number of servings (<code>recipe.servings</code>)</li>
-          <li><code>CoverImage:</code> → optional URL or text for the cover image (<code>recipe.coverImage</code>)</li>
-          <li>Blank line</li>
-          <li><code>Ingredients:</code> → marks the beginning of the ingredients section</li>
-          <li>
-            After <code>Ingredients:</code>, each line is one ingredient:
-            <code>name,quantity,unit</code><br />
-            Example:<br />
-            <code>egg,2,pcs</code> → stored as one ingredient with<br />
-            <code>name = "egg"</code>, <code>quantity = 2</code>, <code>unit = "pcs"</code>
-          </li>
-          <li>Blank line</li>
-          <li><code>Instructions:</code> → marks the beginning of the instructions section</li>
-          <li>
-            After <code>Instructions:</code>, each non-empty line is one step in
-            <code>recipe.instructions</code>, in order.
-          </li>
-        </ul>
+            <h3>Line-by-line Explanation: </h3>
+            <ul>
+                <li><code>Title:</code> → recipe title (stored in <code>recipe.title</code>)</li>
+                <li><code>FoodName:</code> → full name of the dish (<code>recipe.foodName</code>)</li>
+                <li><code>Description:</code> → short description (<code>recipe.description</code>)</li>
+                <li><code>PrepTime:</code> → preparation time in minutes (<code>recipe.prepTime</code>)</li>
+                <li><code>CookTime:</code> → cooking time in minutes (<code>recipe.cookTime</code>)</li>
+                <li><code>Servings:</code> → number of servings (<code>recipe.servings</code>)</li>
+                <li><code>CoverImage:</code> → optional URL or text for the cover image (<code>recipe.coverImage</code>)
+                </li>
+                <li>Blank line</li>
+                <li><code>Ingredients:</code> → marks the beginning of the ingredients section</li>
+                <li>
+                    After <code>Ingredients:</code>, each line is one ingredient:
+                    <code>name,quantity,unit</code><br/>
+                    Example:<br/>
+                    <code>egg,2,pcs</code> → stored as one ingredient with<br/>
+                    <code>name = "egg"</code>, <code>quantity = 2</code>, <code>unit = "pcs"</code>
+                </li>
+                <li>Blank line</li>
+                <li><code>Instructions:</code> → marks the beginning of the instructions section</li>
+                <li>
+                    After <code>Instructions:</code>, each non-empty line is one step in
+                    <code>recipe.instructions</code>, in order.
+                </li>
+            </ul>
 
-        <p>
-          Make sure the section titles <strong>match exactly</strong>:
-          <code>Ingredients:</code> and <code>Instructions:</code>, with a colon.
-        </p>
-      </section>
+            <p>
+                Make sure the section titles <strong>match exactly</strong>:
+                <code>Ingredients:</code> and <code>Instructions:</code>, with a colon.
+            </p>
+        </section>
 
-      <!-- Upload form block -->
-      <section class="card">
-        <h2>Upload Your File</h2>
+        <!-- Upload form block -->
+        <section class="card">
+            <h2>Upload Your File</h2>
 
-        <div class="upload-container">
-          <!-- File chooser -->
-          <div class="form-group">
-            <label for="fileInput">Choose a recipe file (.txt only):</label>
-            <input id="fileInput" type="file" accept=".txt" />
-          </div>
+            <div class="upload-container">
+                <!-- File chooser -->
+                <div class="form-group">
+                    <label for="fileInput">Choose a recipe file (.txt only):</label>
+                    <input id="fileInput" type="file" accept=".txt"/>
+                </div>
 
-          <!-- Upload button -->
-          <button id="uploadBtn" class="btn-primary">Upload</button>
+                <!-- Upload button -->
+                <button id="uploadBtn" class="btn-primary">Upload</button>
 
-          <!-- Message area: success / error will be shown here by JS -->
-          <div id="messageArea">
-            <p id="uploadStatus"></p>
-          </div>
-        </div>
-      </section>
+                <!-- Message area: success / error will be shown here by JS -->
+                <div id="messageArea">
+                    <p id="uploadStatus"></p>
+                </div>
+            </div>
+        </section>
 
     </main>
-  </div>
+</div>
 
-  <!-- Data + logic scripts -->
-  <script src="localData.js"></script>
-  <script src="recipe.js"></script>
-  <script src="upload.js"></script>
+<!-- Data + logic scripts -->
+<script src="localData.js"></script>
+<script src="recipe.js"></script>
+<script src="upload.js"></script>
 </body>
 </html>
