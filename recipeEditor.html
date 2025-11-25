@@ -8,8 +8,8 @@
   </head>
   <body>
     <div class="flex-center">
-      <form id="recipe-editor-form" class="container">
-        <div class="flex">
+      <form id="recipe-editor-form" class="form-container">
+        <div class="grid-container">
           <div id="left-panel">
             <div id="recipe-title" class="editor-card">
               <div class="card-padding"></div>
@@ -122,7 +122,6 @@
               </div>
             </div>
           </div>
-          <div class="middle-empty-space"></div>
           <div id="right-panel" onclick="changeImageInputHeight()">
             <img id="recipe-cover-img" alt="recipe-cover-img" />
             <div id="recipe-cover-upload">
@@ -161,8 +160,6 @@
               </label>
             </div>
           </div>
-        </div>
-        <div class="flex">
           <div id="left-list">
             <div id="recipe-instructions" class="editor-list">
               <div
@@ -179,7 +176,6 @@
               <div id="instruction-list"></div>
             </div>
           </div>
-          <div class="middle-empty-space"></div>
           <div id="right-list">
             <div id="recipe-ingredients" class="editor-list">
               <div
