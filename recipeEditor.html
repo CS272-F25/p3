@@ -7,184 +7,214 @@
     <link href="recipeEditor.css" rel="stylesheet" />
   </head>
   <body>
-    <form id="recipe-editor-form" class="container">
-      <div class="flex">
-        <div id="left-panel">
-          <div id="recipe-title" class="editor-card">
-            <div class="card-padding"></div>
-            <div class="card-content">
-              <h3>Title</h3>
-              <input
-                id="recipe-title-value"
-                name="recipe-title-value"
-                type="text"
-                placeholder="Enter your recipe title"
-              />
+    <div class="flex-center">
+      <form id="recipe-editor-form" class="form-container">
+        <div class="grid-container">
+          <div id="left-panel">
+            <div id="recipe-title" class="editor-card">
+              <div class="card-padding"></div>
+              <div class="card-content">
+                <h3>Title</h3>
+                <input
+                  id="recipe-title-value"
+                  name="recipe-title-value"
+                  type="text"
+                  placeholder="Enter your recipe title"
+                />
+              </div>
+            </div>
+            <div id="recipe-rating" class="editor-card">
+              <div class="card-padding"></div>
+              <div class="card-content">
+                <h3>Rating</h3>
+                <fieldset id="display-rating">
+                  <input type="radio" id="star5" name="rating" value="5" />
+                  <label for="star5" title="5 stars">★</label>
+
+                  <input type="radio" id="star4" name="rating" value="4" />
+                  <label for="star4" title="4 stars">★</label>
+
+                  <input type="radio" id="star3" name="rating" value="3" />
+                  <label for="star3" title="3 stars">★</label>
+
+                  <input type="radio" id="star2" name="rating" value="2" />
+                  <label for="star2" title="2 stars">★</label>
+
+                  <input type="radio" id="star1" name="rating" value="1" />
+                  <label for="star1" title="1 star">★</label>
+                </fieldset>
+              </div>
+            </div>
+            <div id="recipe-tags" class="editor-card">
+              <div class="card-padding"></div>
+              <div class="card-content">
+                <div class="flex-space-between">
+                  <h3>Tags</h3>
+                  <div
+                    id="adding-tag-btn"
+                    class="adding-btn adding-btn-dark"
+                    onclick="addTagToHTML()"
+                  ></div>
+                </div>
+                <div id="tag-list"></div>
+              </div>
+            </div>
+            <div id="time-flex">
+              <div id="recipe-prep-time" class="editor-card">
+                <div class="card-padding"></div>
+                <div class="card-content">
+                  <h3>Prep Time</h3>
+                  <p>
+                    <input
+                      type="number"
+                      id="prep-time-value"
+                      name="prep-time-value"
+                      min="0"
+                      placeholder="e.g., 15"
+                    />
+                    min
+                  </p>
+                </div>
+              </div>
+              <div id="recipe-cook-time" class="editor-card">
+                <div class="card-padding"></div>
+                <div class="card-content">
+                  <h3>Cook Time</h3>
+                  <p>
+                    <input
+                      type="number"
+                      id="cook-time-value"
+                      name="cook-time-value"
+                      min="0"
+                      placeholder="e.g., 15"
+                    />
+                    min
+                  </p>
+                </div>
+              </div>
+              <div id="recipe-servings" class="editor-card">
+                <div class="card-padding"></div>
+                <div class="card-content">
+                  <h3>Servings</h3>
+                  <p>
+                    <input
+                      type="number"
+                      id="servings-value"
+                      name="servings-value"
+                      min="1"
+                      placeholder="e.g., 3"
+                    />
+                    person
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div id="recipe-description" class="editor-card">
+              <div class="card-padding"></div>
+              <div class="card-content">
+                <h3>Description</h3>
+                <textarea
+                  id="recipe-description-value"
+                  name="recipe-description-value"
+                  placeholder="Enter your recipe description"
+                >
+                </textarea>
+              </div>
             </div>
           </div>
-          <div id="recipe-rating" class="editor-card">
-            <div class="card-padding"></div>
-            <div class="card-content">
-              <h3>Rating</h3>
-              <fieldset id="display-rating">
-                <input type="radio" id="star5" name="rating" value="5" />
-                <label for="star5" title="5 stars">★</label>
-
-                <input type="radio" id="star4" name="rating" value="4" />
-                <label for="star4" title="4 stars">★</label>
-
-                <input type="radio" id="star3" name="rating" value="3" />
-                <label for="star3" title="3 stars">★</label>
-
-                <input type="radio" id="star2" name="rating" value="2" />
-                <label for="star2" title="2 stars">★</label>
-
-                <input type="radio" id="star1" name="rating" value="1" />
-                <label for="star1" title="1 star">★</label>
-              </fieldset>
+          <div id="right-panel" onclick="changeImageInputHeight()">
+            <img id="recipe-cover-img" alt="recipe-cover-img" />
+            <div id="recipe-cover-upload">
+              <label for="cover-img-input" class="custum-file-upload">
+                <div class="icon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill=""
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M10 1C9.73478 1 9.48043 1.10536 9.29289 1.29289L3.29289 7.29289C3.10536 7.48043 3 7.73478 3 8V20C3 21.6569 4.34315 23 6 23H7C7.55228 23 8 22.5523 8 22C8 21.4477 7.55228 21 7 21H6C5.44772 21 5 20.5523 5 20V9H10C10.5523 9 11 8.55228 11 8V3H18C18.5523 3 19 3.44772 19 4V9C19 9.55228 19.4477 10 20 10C20.5523 10 21 9.55228 21 9V4C21 2.34315 19.6569 1 18 1H10ZM9 7H6.41421L9 4.41421V7ZM14 15.5C14 14.1193 15.1193 13 16.5 13C17.8807 13 19 14.1193 19 15.5V16V17H20C21.1046 17 22 17.8954 22 19C22 20.1046 21.1046 21 20 21H13C11.8954 21 11 20.1046 11 19C11 17.8954 11.8954 17 13 17H14V16V15.5ZM16.5 11C14.142 11 12.2076 12.8136 12.0156 15.122C10.2825 15.5606 9 17.1305 9 19C9 21.2091 10.7909 23 13 23H20C22.2091 23 24 21.2091 24 19C24 17.1305 22.7175 15.5606 20.9844 15.122C20.7924 12.8136 18.858 11 16.5 11Z"
+                        fill=""
+                      ></path>
+                    </g>
+                  </svg>
+                </div>
+                <div class="text">
+                  <span>Click to upload image</span>
+                </div>
+                <input
+                  id="cover-img-input"
+                  type="file"
+                  accept="image/*"
+                  onchange="uploadNewCover()"
+                />
+              </label>
             </div>
           </div>
-          <div id="recipe-tags" class="editor-card">
-            <div class="card-padding"></div>
-            <div class="card-content">
-              <div class="flex-space-between">
-                <h3>Tags</h3>
+          <div id="left-list">
+            <div id="recipe-instructions" class="editor-list">
+              <div
+                class="title-card flex-space-between title-card-padding"
+                id="instruction-title-btn"
+              >
+                <h3 class="list-title" id="instruction-title">Instructions</h3>
                 <div
-                  id="adding-tag-btn"
-                  class="adding-btn adding-btn-dark"
-                  onclick="addTagToHTML()"
+                  id="adding-instruction-btn"
+                  class="adding-btn adding-btn-light"
+                  onclick="addInstructionToHTML()"
                 ></div>
               </div>
-              <div id="tag-list"></div>
+              <div id="instruction-list"></div>
             </div>
           </div>
-          <div id="time-flex">
-            <div id="recipe-prep-time" class="editor-card">
-              <div class="card-padding"></div>
-              <div class="card-content">
-                <h3>Prep Time</h3>
-                <p>
-                  <input
-                    type="number"
-                    id="prep-time-value"
-                    name="prep-time-value"
-                    min="0"
-                    placeholder="e.g., 15"
-                  />
-                  min
-                </p>
-              </div>
-            </div>
-            <div id="recipe-cook-time" class="editor-card">
-              <div class="card-padding"></div>
-              <div class="card-content">
-                <h3>Cook Time</h3>
-                <p>
-                  <input
-                    type="number"
-                    id="cook-time-value"
-                    name="cook-time-value"
-                    min="0"
-                    placeholder="e.g., 15"
-                  />
-                  min
-                </p>
-              </div>
-            </div>
-            <div id="recipe-servings" class="editor-card">
-              <div class="card-padding"></div>
-              <div class="card-content">
-                <h3>Servings</h3>
-                <p>
-                  <input
-                    type="number"
-                    id="servings-value"
-                    name="servings-value"
-                    min="1"
-                    placeholder="e.g., 3"
-                  />
-                  person
-                </p>
-              </div>
-            </div>
-          </div>
-          <div id="recipe-description" class="editor-card">
-            <div class="card-padding"></div>
-            <div class="card-content">
-              <h3>Description</h3>
-              <textarea
-                id="recipe-description-value"
-                name="recipe-description-value"
-                placeholder="Enter your recipe description"
-              >
-              </textarea>
-            </div>
-          </div>
-        </div>
-        <div class="middle-empty-space"></div>
-        <div id="right-panel">
-          <div id="recipe-cover">
-            <img id="recipe-cover-img" alt="recipe-cover-img" />
-            <input id="recipe-img-upload" type="file" accept="image/*" />
-          </div>
-        </div>
-      </div>
-      <div class="flex">
-        <div id="left-list">
-          <div id="recipe-instructions" class="editor-list">
-            <div
-              class="title-card flex-space-between title-card-padding"
-              id="instruction-title-btn"
-            >
-              <h3 class="list-title" id="instruction-title">Instructions</h3>
+          <div id="right-list">
+            <div id="recipe-ingredients" class="editor-list">
               <div
-                id="adding-instruction-btn"
-                class="adding-btn adding-btn-light"
-                onclick="addInstructionToHTML()"
-              ></div>
-            </div>
-            <div id="instruction-list"></div>
-          </div>
-        </div>
-        <div class="middle-empty-space"></div>
-        <div id="right-list">
-          <div id="recipe-ingredients" class="editor-list">
-            <div
-              class="title-card flex-space-between title-card-padding"
-              id="ingredient-title-btn"
-            >
-              <h3 class="list-title" id="ingredient-title">Ingredients</h3>
-              <div
-                id="adding-ingredient-btn"
-                class="adding-btn adding-btn-light"
-                onclick="addIngredientToHTML()"
-              ></div>
-            </div>
-            <div id="ingredient-list"></div>
-          </div>
-        </div>
-      </div>
-      <div id="bottom-btn">
-        <button id="save-btn" type="submit" onclick="saveRecipe()">
-          <div class="svg-wrapper-1">
-            <div class="svg-wrapper">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                width="30"
-                height="30"
-                class="icon"
+                class="title-card flex-space-between title-card-padding"
+                id="ingredient-title-btn"
               >
-                <path
-                  d="M22,15.04C22,17.23 20.24,19 18.07,19H5.93C3.76,19 2,17.23 2,15.04C2,13.07 3.43,11.44 5.31,11.14C5.28,11 5.27,10.86 5.27,10.71C5.27,9.33 6.38,8.2 7.76,8.2C8.37,8.2 8.94,8.43 9.37,8.8C10.14,7.05 11.13,5.44 13.91,5.44C17.28,5.44 18.87,8.06 18.87,10.83C18.87,10.94 18.87,11.06 18.86,11.17C20.65,11.54 22,13.13 22,15.04Z"
-                ></path>
-              </svg>
+                <h3 class="list-title" id="ingredient-title">Ingredients</h3>
+                <div
+                  id="adding-ingredient-btn"
+                  class="adding-btn adding-btn-light"
+                  onclick="addIngredientToHTML()"
+                ></div>
+              </div>
+              <div id="ingredient-list"></div>
             </div>
           </div>
-          <span>Save</span>
-        </button>
-      </div>
-    </form>
+        </div>
+        <div id="bottom-btn">
+          <button id="save-btn" type="submit" onclick="saveRecipe()">
+            <div class="svg-wrapper-1">
+              <div class="svg-wrapper">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="30"
+                  height="30"
+                  class="icon"
+                >
+                  <path
+                    d="M22,15.04C22,17.23 20.24,19 18.07,19H5.93C3.76,19 2,17.23 2,15.04C2,13.07 3.43,11.44 5.31,11.14C5.28,11 5.27,10.86 5.27,10.71C5.27,9.33 6.38,8.2 7.76,8.2C8.37,8.2 8.94,8.43 9.37,8.8C10.14,7.05 11.13,5.44 13.91,5.44C17.28,5.44 18.87,8.06 18.87,10.83C18.87,10.94 18.87,11.06 18.86,11.17C20.65,11.54 22,13.13 22,15.04Z"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+            <span>Save</span>
+          </button>
+        </div>
+      </form>
+    </div>
     <script src="recipeEditor.js"></script>
   </body>
 </html>
