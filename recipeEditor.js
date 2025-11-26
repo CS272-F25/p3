@@ -3,7 +3,7 @@ console.log("JavaScript file loaded successfully!");
 const testRecipes = [
   {
     id: 1,
-    coverImage: "./test_recipe.jpg",
+    coverImage: "test_recipe.jpg",
     title: "Creamy Garlic Pasta",
     foodName: "Pasta",
     description: "Delicious creamy pasta with garlic and parmesan",
@@ -45,9 +45,7 @@ function loadRecipe(id) {
   document.getElementById("recipe-title-value").value = curRecipe.title || "";
 
   // Load cover image
-  if (curRecipe.coverImage) {
-    document.getElementById("recipe-cover-img").src = curRecipe.coverImage;
-  }
+  loadCoverToHTML(curRecipe);
 
   // Load rating
   loadRatingToHTML(curRecipe);
@@ -187,6 +185,47 @@ function getRecipeById(id) {
   const storedRecipes = JSON.parse(localStorage.getItem("recipes") || "[]");
   const recipe = storedRecipes.find((recipe) => recipe.id === id);
   return recipe;
+}
+
+function uploadNewCover() {
+  const input = document.getElementById("cover-img-input");
+  const file = input.files[0];
+  const blobUrl = URL.createObjectURL(file);
+  console.log(blobUrl);
+
+  const recipeCover = document.getElementById("recipe-cover-img");
+  recipeCover.style.display = "block";
+  recipeCover.src = blobUrl;
+
+  const coverImageInput = document.querySelector(".custum-file-upload");
+  coverImageInput.style.height = "30%";
+}
+
+function loadCoverToHTML(curRecipe) {
+  const recipeCover = document.getElementById("recipe-cover-img");
+  const coverImageInput = document.querySelector(".custum-file-upload");
+  if (curRecipe.coverImage) {
+    recipeCover.src = curRecipe.coverImage;
+    coverImageInput.style.height = "30%";
+  } else {
+    recipeCover.style.display = "none";
+    coverImageInput.style.height = "100%";
+  }
+}
+
+function changeImageInputHeight() {
+  const coverImageInput = document.querySelector(".custum-file-upload");
+  if (coverImageInput.style.height === "30%") {
+    coverImageInput.style.height = "0%";
+    coverImageInput.style.padding = "0";
+    const uploadText = document.querySelector(".custum-file-upload .text span");
+    uploadText.style.fontSize = "0";
+  } else if (coverImageInput.style.height === "0%") {
+    const uploadText = document.querySelector(".custum-file-upload .text span");
+    uploadText.style.fontSize = "1rem";
+    coverImageInput.style.padding = "1.5rem";
+    coverImageInput.style.height = "30%";
+  }
 }
 
 /**

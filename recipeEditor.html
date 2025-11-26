@@ -1,191 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recipe Editor</title>
-    <link rel="stylesheet" type="text/css" href="./global.css">
-    <link href="recipeEditor.css" rel="stylesheet"/>
-</head>
-<body>
-<form id="recipe-editor-form" class="container">
-    <div class="flex">
+    <link href="recipeEditor.css" rel="stylesheet" />
+  </head>
+  <body>
+    <form id="recipe-editor-form" class="container">
+      <div class="flex">
         <div id="left-panel">
-            <div id="recipe-title" class="editor-card">
-                <div class="card-padding"></div>
-                <div class="card-content">
-                    <h3>Title</h3>
-                    <input
-                            id="recipe-title-value"
-                            name="recipe-title-value"
-                            type="text"
-                            placeholder="Enter your recipe title"
-                    />
-                </div>
+          <div id="recipe-title" class="editor-card">
+            <div class="card-padding"></div>
+            <div class="card-content">
+              <h3>Title</h3>
+              <input
+                id="recipe-title-value"
+                name="recipe-title-value"
+                type="text"
+                placeholder="Enter your recipe title"
+              />
             </div>
-            <div id="recipe-rating" class="editor-card">
-                <div class="card-padding"></div>
-                <div class="card-content">
-                    <h3>Rating</h3>
-                    <fieldset id="display-rating">
-                        <input type="radio" id="star5" name="rating" value="5"/>
-                        <label for="star5" title="5 stars">★</label>
+          </div>
+          <div id="recipe-rating" class="editor-card">
+            <div class="card-padding"></div>
+            <div class="card-content">
+              <h3>Rating</h3>
+              <fieldset id="display-rating">
+                <input type="radio" id="star5" name="rating" value="5" />
+                <label for="star5" title="5 stars">★</label>
 
-                        <input type="radio" id="star4" name="rating" value="4"/>
-                        <label for="star4" title="4 stars">★</label>
+                <input type="radio" id="star4" name="rating" value="4" />
+                <label for="star4" title="4 stars">★</label>
 
-                        <input type="radio" id="star3" name="rating" value="3"/>
-                        <label for="star3" title="3 stars">★</label>
+                <input type="radio" id="star3" name="rating" value="3" />
+                <label for="star3" title="3 stars">★</label>
 
-                        <input type="radio" id="star2" name="rating" value="2"/>
-                        <label for="star2" title="2 stars">★</label>
+                <input type="radio" id="star2" name="rating" value="2" />
+                <label for="star2" title="2 stars">★</label>
 
-                        <input type="radio" id="star1" name="rating" value="1"/>
-                        <label for="star1" title="1 star">★</label>
-                    </fieldset>
-                </div>
+                <input type="radio" id="star1" name="rating" value="1" />
+                <label for="star1" title="1 star">★</label>
+              </fieldset>
             </div>
-            <div id="recipe-tags" class="editor-card">
-                <div class="card-padding"></div>
-                <div class="card-content">
-                    <div class="flex-space-between">
-                        <h3>Tags</h3>
-                        <div
-                                id="adding-tag-btn"
-                                class="adding-btn adding-btn-dark"
-                                onclick="addTagToHTML()"
-                        ></div>
-                    </div>
-                    <div id="tag-list"></div>
-                </div>
+          </div>
+          <div id="recipe-tags" class="editor-card">
+            <div class="card-padding"></div>
+            <div class="card-content">
+              <div class="flex-space-between">
+                <h3>Tags</h3>
+                <div
+                  id="adding-tag-btn"
+                  class="adding-btn adding-btn-dark"
+                  onclick="addTagToHTML()"
+                ></div>
+              </div>
+              <div id="tag-list"></div>
             </div>
-            <div id="time-flex">
-                <div id="recipe-prep-time" class="editor-card">
-                    <div class="card-padding"></div>
-                    <div class="card-content">
-                        <h3>Prep Time</h3>
-                        <p>
-                            <input
-                                    type="number"
-                                    id="prep-time-value"
-                                    name="prep-time-value"
-                                    min="0"
-                                    placeholder="e.g., 15"
-                            />
-                            min
-                        </p>
-                    </div>K
-                </div>
-                <div id="recipe-cook-time" class="editor-card">
-                    <div class="card-padding"></div>
-                    <div class="card-content">
-                        <h3>Cook Time</h3>
-                        <p>
-                            <input
-                                    type="number"
-                                    id="cook-time-value"
-                                    name="cook-time-value"
-                                    min="0"
-                                    placeholder="e.g., 15"
-                            />
-                            min
-                        </p>
-                    </div>
-                </div>
-                <div id="recipe-servings" class="editor-card">
-                    <div class="card-padding"></div>
-                    <div class="card-content">
-                        <h3>Servings</h3>
-                        <p>
-                            <input
-                                    type="number"
-                                    id="servings-value"
-                                    name="servings-value"
-                                    min="1"
-                                    placeholder="e.g., 3"
-                            />
-                            person
-                        </p>
-                    </div>
-                </div>
+          </div>
+          <div id="time-flex">
+            <div id="recipe-prep-time" class="editor-card">
+              <div class="card-padding"></div>
+              <div class="card-content">
+                <h3>Prep Time</h3>
+                <p>
+                  <input
+                    type="number"
+                    id="prep-time-value"
+                    name="prep-time-value"
+                    min="0"
+                    placeholder="e.g., 15"
+                  />
+                  min
+                </p>
+              </div>
             </div>
-            <div id="recipe-description" class="editor-card">
-                <div class="card-padding"></div>
-                <div class="card-content">
-                    <h3>Description</h3>
-                    <textarea
-                            id="recipe-description-value"
-                            name="recipe-description-value"
-                            placeholder="Enter your recipe description"
-                    >
+            <div id="recipe-cook-time" class="editor-card">
+              <div class="card-padding"></div>
+              <div class="card-content">
+                <h3>Cook Time</h3>
+                <p>
+                  <input
+                    type="number"
+                    id="cook-time-value"
+                    name="cook-time-value"
+                    min="0"
+                    placeholder="e.g., 15"
+                  />
+                  min
+                </p>
+              </div>
+            </div>
+            <div id="recipe-servings" class="editor-card">
+              <div class="card-padding"></div>
+              <div class="card-content">
+                <h3>Servings</h3>
+                <p>
+                  <input
+                    type="number"
+                    id="servings-value"
+                    name="servings-value"
+                    min="1"
+                    placeholder="e.g., 3"
+                  />
+                  person
+                </p>
+              </div>
+            </div>
+          </div>
+          <div id="recipe-description" class="editor-card">
+            <div class="card-padding"></div>
+            <div class="card-content">
+              <h3>Description</h3>
+              <textarea
+                id="recipe-description-value"
+                name="recipe-description-value"
+                placeholder="Enter your recipe description"
+              >
               </textarea>
-                </div>
             </div>
+          </div>
         </div>
         <div class="middle-empty-space"></div>
         <div id="right-panel">
-            <div id="recipe-cover">
-                <img id="recipe-cover-img" alt="recipe-cover-img"/>
-                <input id="recipe-img-upload" type="file" accept="image/*"/>
-            </div>
+          <div id="recipe-cover">
+            <img id="recipe-cover-img" alt="recipe-cover-img" />
+            <input id="recipe-img-upload" type="file" accept="image/*" />
+          </div>
         </div>
-    </div>
-    <div class="flex">
+      </div>
+      <div class="flex">
         <div id="left-list">
-            <div id="recipe-instructions" class="editor-list">
-                <div
-                        class="title-card flex-space-between title-card-padding"
-                        id="instruction-title-btn"
-                >
-                    <h3 class="list-title" id="instruction-title">Instructions</h3>
-                    <div
-                            id="adding-instruction-btn"
-                            class="adding-btn adding-btn-light"
-                            onclick="addInstructionToHTML()"
-                    ></div>
-                </div>
-                <div id="instruction-list"></div>
+          <div id="recipe-instructions" class="editor-list">
+            <div
+              class="title-card flex-space-between title-card-padding"
+              id="instruction-title-btn"
+            >
+              <h3 class="list-title" id="instruction-title">Instructions</h3>
+              <div
+                id="adding-instruction-btn"
+                class="adding-btn adding-btn-light"
+                onclick="addInstructionToHTML()"
+              ></div>
             </div>
+            <div id="instruction-list"></div>
+          </div>
         </div>
         <div class="middle-empty-space"></div>
         <div id="right-list">
-            <div id="recipe-ingredients" class="editor-list">
-                <div
-                        class="title-card flex-space-between title-card-padding"
-                        id="ingredient-title-btn"
-                >
-                    <h3 class="list-title" id="ingredient-title">Ingredients</h3>
-                    <div
-                            id="adding-ingredient-btn"
-                            class="adding-btn adding-btn-light"
-                            onclick="addIngredientToHTML()"
-                    ></div>
-                </div>
-                <div id="ingredient-list"></div>
+          <div id="recipe-ingredients" class="editor-list">
+            <div
+              class="title-card flex-space-between title-card-padding"
+              id="ingredient-title-btn"
+            >
+              <h3 class="list-title" id="ingredient-title">Ingredients</h3>
+              <div
+                id="adding-ingredient-btn"
+                class="adding-btn adding-btn-light"
+                onclick="addIngredientToHTML()"
+              ></div>
             </div>
+            <div id="ingredient-list"></div>
+          </div>
         </div>
-    </div>
-    <div id="bottom-btn">
+      </div>
+      <div id="bottom-btn">
         <button id="save-btn" type="submit" onclick="saveRecipe()">
-            <div class="svg-wrapper-1">
-                <div class="svg-wrapper">
-                    <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            width="30"
-                            height="30"
-                            class="icon"
-                    >
-                        <path
-                                d="M22,15.04C22,17.23 20.24,19 18.07,19H5.93C3.76,19 2,17.23 2,15.04C2,13.07 3.43,11.44 5.31,11.14C5.28,11 5.27,10.86 5.27,10.71C5.27,9.33 6.38,8.2 7.76,8.2C8.37,8.2 8.94,8.43 9.37,8.8C10.14,7.05 11.13,5.44 13.91,5.44C17.28,5.44 18.87,8.06 18.87,10.83C18.87,10.94 18.87,11.06 18.86,11.17C20.65,11.54 22,13.13 22,15.04Z"
-                        ></path>
-                    </svg>
-                </div>
+          <div class="svg-wrapper-1">
+            <div class="svg-wrapper">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="30"
+                height="30"
+                class="icon"
+              >
+                <path
+                  d="M22,15.04C22,17.23 20.24,19 18.07,19H5.93C3.76,19 2,17.23 2,15.04C2,13.07 3.43,11.44 5.31,11.14C5.28,11 5.27,10.86 5.27,10.71C5.27,9.33 6.38,8.2 7.76,8.2C8.37,8.2 8.94,8.43 9.37,8.8C10.14,7.05 11.13,5.44 13.91,5.44C17.28,5.44 18.87,8.06 18.87,10.83C18.87,10.94 18.87,11.06 18.86,11.17C20.65,11.54 22,13.13 22,15.04Z"
+                ></path>
+              </svg>
             </div>
-            <span>Save</span>
+          </div>
+          <span>Save</span>
         </button>
-    </div>
-</form>
-<script src="recipeEditor.js"></script>
-</body>
+      </div>
+    </form>
+    <script src="recipeEditor.js"></script>
+  </body>
 </html>
