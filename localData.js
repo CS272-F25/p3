@@ -1,3 +1,0 @@
-localData = {
-    recipes: [],
-}

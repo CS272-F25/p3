@@ -8,9 +8,10 @@
 // -------------------------------
 // 1. Sync localData with localStorage
 // -------------------------------
-// localData is defined in localData.js as:
-// localData = { recipes: [] }
+// localData is defined in localStorageManager.js as:
+// localData = { update this please, refer to localStorageManager.js for its structure}
 
+//TODO: update localData structure
 (function initializeLocalData() {
   const saved = localStorage.getItem("localData");
   if (saved) {
