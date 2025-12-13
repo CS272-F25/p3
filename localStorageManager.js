@@ -469,14 +469,14 @@ function processApiJson(json, conversion=false) {
         newRecipe.ingredients.push(ingredient);
 
         if (measure) {
-
+            let measureParts=[]
             if (conversion){
                 let measurestr = convertFractionsToDecimals(measure);
                 // console.log(measure);
                 // console.log(measurestr);
-                let measureParts = measurestr.split(/\s+/).filter(part => part); // Split by whitespace
+                measureParts = measurestr.split(/\s+/).filter(part => part); // Split by whitespace
             }else{
-                let measureParts = measure.split(/\s+/).filter(part => part); // Split by whitespace
+                measureParts = measure.split(/\s+/).filter(part => part); // Split by whitespace
             }
 
 
