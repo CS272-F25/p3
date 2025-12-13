@@ -351,21 +351,21 @@ function convertFractionsToDecimals(inputString) {
         '⅝': '.625',
         '⅞': '.875',
 
-        // '1/2': '.5',
-        // '1/3': '.333',
-        // '2/3': '.667',
-        // '1/4': '.25',
-        // '3/4': '.75',
-        // '1/5': '.2',
-        // '2/5': '.4',
-        // '3/5': '.6',
-        // '4/5': '.8',
-        // '1/6': '.167',
-        // '5/6': '.833',
-        // '1/8': '.125',
-        // '3/8': '.375',
-        // '5/8': '.625',
-        // '7/8': '.875'
+        '1/2': '.5',
+        '1/3': '.333',
+        '2/3': '.667',
+        '1/4': '.25',
+        '3/4': '.75',
+        '1/5': '.2',
+        '2/5': '.4',
+        '3/5': '.6',
+        '4/5': '.8',
+        '1/6': '.167',
+        '5/6': '.833',
+        '1/8': '.125',
+        '3/8': '.375',
+        '5/8': '.625',
+        '7/8': '.875'
     };
 
     const keys = Object.keys(fractionMap)
@@ -424,10 +424,12 @@ async function apiRandom2localRecipe() {
 /**
  * Helper function to process API JSON response into local Recipe object
  * for API call returning ONLY ONE MEAL
+ * if you want to convert fractions into decimals, set conversion=true
  * @param json
+ * @param conversion
  * @returns {{Recipe}}
  */
-function processApiJson(json) {
+function processApiJson(json, conversion=false) {
     let newRecipe = {}
     if (!json.meals || json.meals.length === 0) {
         throw new Error("Recipe not found.");
@@ -467,10 +469,16 @@ function processApiJson(json) {
         newRecipe.ingredients.push(ingredient);
 
         if (measure) {
-            let measurestr = convertFractionsToDecimals(measure);
-            console.log(measure);
-            console.log(measurestr);
-            let measureParts = measurestr.split(/\s+/).filter(part => part); // Split by whitespace
+
+            if (conversion){
+                let measurestr = convertFractionsToDecimals(measure);
+                // console.log(measure);
+                // console.log(measurestr);
+                let measureParts = measurestr.split(/\s+/).filter(part => part); // Split by whitespace
+            }else{
+                let measureParts = measure.split(/\s+/).filter(part => part); // Split by whitespace
+            }
+
 
             if (measureParts.length === 0) {
                 newRecipe.amounts.push("");
