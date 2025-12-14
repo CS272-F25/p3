@@ -242,7 +242,7 @@ function navigateTo(pathArr) {
 function openFile(node) {
     selectItem(node);
     let path = getPathOfNode(node);
-    path= path.pop()
+    path.pop()
     setSaveFilePathToOpen(path);
     setRecipeToOpen(node);
     window.location.href = "recipeDisplay.html";

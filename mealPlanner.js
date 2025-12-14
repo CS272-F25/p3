@@ -2,7 +2,7 @@ import {
     apiRandom2localRecipe,
     addPrivateRecipe,
     getUserFS,
-    setRecipeToOpen
+    setRecipeToOpen, setSaveFilePathToOpen
 } from "./localStorageManager.js";
 
 const SESSION_KEY = "CS472MealPlan3Days";
@@ -248,6 +248,7 @@ function renderGrid(meals) {
         const meal = meals.find(m => m.id === id);
         if (meal) {
             setRecipeToOpen(meal);
+            setSaveFilePathToOpen(selectedSavePath);
             window.location.href = "recipeDisplay.html";
         }
     };

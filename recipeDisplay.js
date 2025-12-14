@@ -3,7 +3,7 @@ import {
     addPrivateRecipe,
     getRecipeToOpen,
     setSaveFilePathToOpen,
-    setRecipeToOpen
+    setRecipeToOpen, getSaveFilePathToOpen
 } from "./localStorageManager.js";
 
 const treeContainer = document.getElementById("tree");
@@ -28,6 +28,24 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
     renderRecipe(currentRecipe);
+    const savedPath = getSaveFilePathToOpen();
+    if (savedPath && Array.isArray(savedPath)) {
+        selectedSavePath = savedPath;
+
+        // Update display text
+        pathDisplay.textContent = "Saving to: /" + selectedSavePath.slice(1).join('/');
+
+        // Auto-expand the tree to the selected path
+        let currentPathStr = "";
+        savedPath.forEach((folder, index) => {
+            if (index === 0) {
+                currentPathStr = folder;
+            } else {
+                currentPathStr += "/" + folder;
+            }
+            window._expanded.add(currentPathStr);
+        });
+    }
 
     displayTree();
 });
