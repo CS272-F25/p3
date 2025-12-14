@@ -242,7 +242,8 @@ function openFile(node) {
     selectItem(node);
     let path = getPathOfNode(node);
     setSaveFilePathToOpen(path);
-    location.replace("./recipeEditor.html")
+    window.location.href = "recipeEditor.html";
+    // location.replace("./recipeEditor.html")
     // alert('Open file: ' + node.name + '\n open Recipe not implemented. refer to quick preview');
 }
 
