@@ -123,6 +123,43 @@ a {
   color: var(--text-main);
 }
 
+.nav-toggle {
+  display: none;
+}
+
+.nav-toggle-label {
+  display: none;
+  cursor: pointer;
+  padding: 10px;
+  align-items: center;
+}
+
+.nav-toggle-label span,
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+  display: block;
+  background: var(--text-main);
+  height: 2px;
+  width: 24px;
+  border-radius: 2px;
+  position: relative;
+  transition: var(--transition);
+}
+
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+  content: "";
+  position: absolute;
+}
+
+/* Position the top and bottom bars */
+.nav-toggle-label span::before {
+  bottom: 8px;
+}
+.nav-toggle-label span::after {
+  top: 8px;
+}
+
 /* --- Hero Section --- */
 .hero {
   padding: 160px 0 100px;
@@ -323,5 +360,60 @@ footer {
   .card.checkout,
   .card.random {
     grid-column: span 12; /* Stack everything on mobile */
+  }
+}
+
+@media (max-width: 900px) {
+  /* Show the hamburger icon */
+  .nav-toggle-label {
+    display: flex;
+  }
+
+  /* Style the Dropdown Menu */
+  .nav-links {
+    position: absolute;
+    top: 100%; /* Push it right below the navbar */
+    left: 0;
+    width: 100%;
+    background: var(--bg-surface); /* Solid background for readability */
+    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    gap: 20px;
+
+    /* Logic to hide it by default */
+    transform: scaleY(0);
+    transform-origin: top;
+    opacity: 0;
+    transition: var(--transition);
+  }
+
+  /* Increase link size for mobile tapping */
+  .nav-links a {
+    font-size: 1.1rem;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  /* --- The Toggle Logic --- */
+  /* When checkbox is checked, reveal the menu */
+  #nav-toggle:checked ~ .nav-links {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+
+  /* Optional: Animation for the Hamburger Icon into an 'X' */
+  #nav-toggle:checked ~ .nav-toggle-label span {
+    background: transparent; /* Hide middle bar */
+  }
+  #nav-toggle:checked ~ .nav-toggle-label span::before {
+    bottom: 0;
+    transform: rotate(45deg);
+  }
+  #nav-toggle:checked ~ .nav-toggle-label span::after {
+    top: 0;
+    transform: rotate(-45deg);
   }
 }
