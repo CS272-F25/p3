@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tagKitchen - The OS for Your Recipes</title>
+    <link href="main.css" rel="stylesheet" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container nav-content">
+        <a href="#" class="logo">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3 6h18M3 12h18M3 18h18"
+              stroke="#8ab4f8"
+              stroke-width="2.5"
+              stroke-linecap="round"
+            />
+          </svg>
+          <span>tagKitchen</span>
+        </a>
+        <div class="nav-links">
+          <a href="#browser">Browser</a>
+          <a href="#checkout">Checkout</a>
+          <a href="#random">Random</a>
+        </div>
+        <div>
+          <a
+            href="#"
+            class="btn btn-primary"
+            style="padding: 8px 20px; font-size: 0.9rem"
+            >Launch App</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="container">
+        <h1>The Operating System<br />For Your Kitchen</h1>
+        <p>
+          Manage recipes like files. Organize, edit, and plan your meals with a
+          powerful, local-first interface inspired by your favorite developer
+          tools.
+        </p>
+        <div>
+          <a href="#browser" class="btn btn-primary">Go to Browser</a>
+          <a href="#upload" class="btn btn-outline">Upload .txt</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="container">
+        <div class="section-header">
+          <h2>Workflow & Features</h2>
+          <p>
+            A comprehensive suite of tools designed to streamline your cooking
+            process.
+          </p>
+        </div>
+
+        <div class="grid-container">
+          <div class="card browser" id="browser">
+            <div class="text-side">
+              <div class="card-content">
+                <h3>Recipe Browser</h3>
+                <p>
+                  Navigate your culinary collection with a familiar file system
+                  interface. Features a directory tree structure, breadcrumbs,
+                  and instant global search. Manage folders and files
+                  efficiently, just like Google Drive.
+                </p>
+                <div>
+                  <span class="mock-tag">Tree Structure</span>
+                  <span class="mock-tag">Global Search</span>
+                  <span class="mock-tag">File Management</span>
+                </div>
+              </div>
+            </div>
+            <div class="visual-side">
+              <img
+                id="screenshot"
+                src="recipe_browser.png"
+                alt="Recipe Browser"
+              />
+            </div>
+          </div>
+
+          <div class="card editor">
+            <div class="card-content">
+              <h3>Recipe Editor</h3>
+              <p>
+                Full control over your data. Create new recipes or modify
+                existing ones with a structured form editor. Update ingredients,
+                instructions, cooking time, and ratings instantly.
+              </p>
+              <a
+                href="#"
+                style="
+                  color: var(--primary);
+                  font-weight: 500;
+                  margin-top: auto;
+                  display: inline-block;
+                "
+                >Start Editing →</a
+              >
+            </div>
+          </div>
+
+          <div class="card upload" id="upload">
+            <div class="card-content">
+              <h3>Smart Import</h3>
+              <p>
+                Seamlessly import `.txt` files. The system parses unstructured
+                text into formatted JSON objects and stores them directly in
+                your browser's LocalStorage.
+              </p>
+            </div>
+            <div style="margin-top: 20px; opacity: 0.5">
+              <svg
+                width="40"
+                height="40"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div class="card display">
+            <div class="card-content">
+              <h3>Clean Display</h3>
+              <p>
+                An optimized reading view designed for the kitchen. Focus on
+                instructions and ingredients without distractions.
+              </p>
+            </div>
+          </div>
+
+          <div class="card checkout" id="checkout">
+            <div class="card-content">
+              <h3>Recipe Checkout</h3>
+              <p>
+                Select multiple recipes for your next meal. The system
+                automatically aggregates ingredients into a single shopping
+                list.
+              </p>
+            </div>
+          </div>
+
+          <div class="card random" id="random">
+            <div class="card-content">
+              <h3>Inspiration Generator</h3>
+              <p>
+                Unsure what to eat?<br />Generate a random 3-day meal plan
+                instantly to spark your culinary creativity.
+              </p>
+              <button
+                class="btn btn-primary"
+                style="
+                  margin-top: 20px;
+                  background: white;
+                  color: black;
+                  border: none;
+                "
+              >
+                I'm Feeling Lucky
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <h3>tagKitchen</h3>
+        <p>University of Wisconsin-Madison CS472 Final Project</p>
+        <div class="team-list">
+          Made with <span style="color: #e25555">&hearts;</span> by Qixuan Chen,
+          DaeOck Kim, Zongze Lu, Caleb Kapen
+        </div>
+        <p style="margin-top: 20px; font-size: 0.8rem; color: #5f6368">
+          &copy; 2025 tagKitchen. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
