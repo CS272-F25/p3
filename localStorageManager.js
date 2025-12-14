@@ -304,16 +304,20 @@ function addPrivateFolder(folderName, pathArr, UID = "user1") {
  * @param recipe new recipe object to add
  * @param {node[]}pathArr array of nodes from root (ex: ['root', 'a', 'b'] for root/a/b folder
  * @param UID user name
+ * @param overwrite
  * @returns {boolean} true if successful
  * @description
  * take array of nodes as path and add a new recipe
+ * set overwrite to True to ignore error message and overwrite recipe. (for recipeEditor)
  */
-function addPrivateRecipe(recipe, pathArr, UID = "user1") {
+function addPrivateRecipe(recipe, pathArr, UID = "user1",overwrite=false) {
     let node = findFolder(pathArr, UID);
     if (node) {
         if (node.children.find(c => c.title === recipe.title)) {
-            alert(recipe.title + " already exists!");
-            return false;
+            if(!overwrite){
+                alert(recipe.title + " already exists!");
+                return false;
+            }
         }
         node.children.push(recipe);
         pushLocalData();
