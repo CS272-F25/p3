@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 backBtn.addEventListener("click", () => {
-    window.location.href = "mealPlanner.html";
+    history.back();
 });
 
 saveBtn.addEventListener("click", () => {
