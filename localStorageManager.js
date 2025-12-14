@@ -200,6 +200,7 @@ let sampleRecipeCS472 = {
     },
 }
 const LOCALSTORAGEKEY = "RecipeCS472"
+const OPEN_FILE_SESSION_KEY = "CS472OPENFILEPATH";
 let localData = null;
 localData = fetchLocalData();
 pushLocalData();
@@ -309,7 +310,7 @@ function addPrivateFolder(folderName, pathArr, UID = "user1") {
 function addPrivateRecipe(recipe, pathArr, UID = "user1") {
     let node = findFolder(pathArr, UID);
     if (node) {
-        if(node.children.find(c=>c.title===recipe.title)){
+        if (node.children.find(c => c.title === recipe.title)) {
             alert(recipe.title + " already exists!");
             return false;
         }
@@ -429,7 +430,7 @@ async function apiRandom2localRecipe() {
  * @param conversion
  * @returns {{Recipe}}
  */
-function processApiJson(json, conversion=false) {
+function processApiJson(json, conversion = false) {
     let newRecipe = {}
     if (!json.meals || json.meals.length === 0) {
         throw new Error("Recipe not found.");
@@ -451,7 +452,7 @@ function processApiJson(json, conversion=false) {
     }
 
     newRecipe.ingredients = []
-    newRecipe.amounts= []
+    newRecipe.amounts = []
     newRecipe.units = []
 
     // Loop for ingredients and measures (up to 20 pairs in TheMealDB API)
@@ -469,13 +470,13 @@ function processApiJson(json, conversion=false) {
         newRecipe.ingredients.push(ingredient);
 
         if (measure) {
-            let measureParts=[]
-            if (conversion){
+            let measureParts = []
+            if (conversion) {
                 let measurestr = convertFractionsToDecimals(measure);
                 // console.log(measure);
                 // console.log(measurestr);
                 measureParts = measurestr.split(/\s+/).filter(part => part); // Split by whitespace
-            }else{
+            } else {
                 measureParts = measure.split(/\s+/).filter(part => part); // Split by whitespace
             }
 
@@ -508,10 +509,21 @@ function processApiJson(json, conversion=false) {
     newRecipe.cookTime = Math.floor(Math.random() * (24 - 3) + 3) * 5;
     newRecipe.prepTime = Math.floor(Math.random() * (6 - 1) + 1) * 5;
     newRecipe.servings = 1;
-    newRecipe.favorite=false;
+    newRecipe.favorite = false;
     newRecipe.rating = 0;
 
     return newRecipe;
+}
+
+
+function setSaveFilePathToOpen(path) {
+    sessionStorage.setItem(OPEN_FILE_SESSION_KEY, JSON.stringify(path));
+}
+
+function getSaveFilePathToOpen() {
+    const path = JSON.parse(sessionStorage.getItem(OPEN_FILE_SESSION_KEY));
+    sessionStorage.removeItem(OPEN_FILE_SESSION_KEY);
+    return path;
 }
 
 
@@ -525,4 +537,6 @@ export {
     addPrivateRecipe,
     apiID2localRecipe,
     apiRandom2localRecipe,
+    setSaveFilePathToOpen,
+    getSaveFilePathToOpen
 }
