@@ -1,46 +1,54 @@
+import { getSaveFilePathToOpen, getUserFS } from "./localStorageManager.js";
+
 console.log("recipeEditor.js loaded successfully!");
 
-const testRecipes = [
-  {
-    id: 1,
-    coverImage: "test_recipe.jpg",
-    title: "Creamy Garlic Pasta",
-    foodName: "Pasta",
-    description: "Delicious creamy pasta with garlic and parmesan",
-    prepTime: 10,
-    cookTime: 20,
-    rating: 4,
-    ingredients: [
-      { name: "pasta", quantity: 200, unit: "g" },
-      { name: "garlic", quantity: 3, unit: "cloves" },
-      { name: "heavy cream", quantity: 200, unit: "ml" },
-      { name: "parmesan", quantity: 50, unit: "g" },
-    ],
-    instructions: [
-      "Cook pasta according to package directions",
-      "Sauté garlic in butter",
-      "Add cream and parmesan",
-      "Mix with cooked pasta",
-    ],
-    tags: ["Italian", "Vegetarian", "Quick"],
-    servings: 1,
-  },
-];
+document.addEventListener("DOMContentLoaded", initListener);
+
+const recipePath = getSaveFilePathToOpen();
+
+const curRecipe = findRecipeByPath(recipePath) ?? {
+  id: null,
+  coverImage: "",
+  title: "Enter Recipe Title Here",
+  foodName: "Enter Main Food Name",
+  description: "Enter a brief description of the dish here...",
+  prepTime: 0,
+  cookTime: 0,
+  rating: 0,
+  ingredients: [{ name: "Ingredient Name", quantity: 0, unit: "Unit" }],
+  instructions: ["Step 1: Enter your first cooking instruction here"],
+  tags: ["e.g. Vegetarian"],
+  servings: 1,
+};
+
+/**
+ *
+ * @param {node[]}pathArr array of nodes from root
+ * @returns {node|null} node object found from a file system
+ * @description
+ * take array of nodes as path and return node object if found.
+ */
+
+function findRecipeByPath(pathArr) {
+  let node = getUserFS();
+  for (let i = 1; i < pathArr.length; i++) {
+    const name = pathArr[i];
+    if (!node.children) return null;
+    node = node.children.find((c) => c.title === name);
+    if (!node) return null;
+  }
+  return node;
+}
 
 let latestServings;
 
-localStorage.setItem("recipes", JSON.stringify(testRecipes));
-
-const currentRecipeId = 1;
-
-loadRecipeToHTML(currentRecipeId);
+loadRecipeToHTML(curRecipe);
 
 /**
- * Loads a recipe by its ID and populates the form fields
- * @param {number} id - The recipe ID to load
+ * Loads a recipe and populates the form fields
+ * @param {object} curRecipe - The recipe to load
  */
-function loadRecipeToHTML(id) {
-  const curRecipe = getRecipeById(id);
+function loadRecipeToHTML(curRecipe) {
   if (!curRecipe) return;
 
   // Load title
@@ -441,4 +449,28 @@ function updateIngredientQuantity(newServings, curRecipe) {
   curRecipe.ingredients.forEach((ingredient, i) => {
     ingredientAmounts[i].value = newServings * ingredient.quantity;
   });
+}
+
+function initListener() {
+  document
+    .getElementById("adding-tag-btn")
+    .addEventListener("click", addTagToHTML);
+
+  document
+    .getElementById("right-panel")
+    .addEventListener("click", changeImageInputHeight);
+
+  document
+    .getElementById("cover-img-input")
+    .addEventListener("change", uploadNewCover);
+
+  document
+    .getElementById("adding-instruction-btn")
+    .addEventListener("click", addInstructionToHTML);
+
+  document
+    .getElementById("adding-ingredient-btn")
+    .addEventListener("click", addIngredientToHTML);
+
+  document.getElementById("save-btn").addEventListener("click", saveRecipes);
 }
