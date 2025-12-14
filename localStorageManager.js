@@ -255,7 +255,7 @@ function getUserFS(UID = "user1") {
 }
 
 /**
- * Find folder object from FS object given path and user
+ * Find folder object from FS object IN LOCALDATA given path and user
  * @param {node[]}pathArr array of nodes from root (ex: ['root', 'a', 'b'] for root/a/b folder
  * @param UID user name
  * @returns {node|Boolean} return folder object if successful. false otherwise.

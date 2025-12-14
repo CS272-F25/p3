@@ -7,7 +7,9 @@ import {
     addPrivateFolder,
     addPrivateRecipe,
     apiID2localRecipe,
-
+    apiRandom2localRecipe,
+    setSaveFilePathToOpen,
+    getSaveFilePathToOpen
 } from "./localStorageManager.js";
 
 let FS = getUserFS();
@@ -238,7 +240,10 @@ function navigateTo(pathArr) {
 
 function openFile(node) {
     selectItem(node);
-    alert('Open file: ' + node.name + '\n open Recipe not implemented. refer to quick preview');
+    let path = getPathOfNode(node);
+    setSaveFilePathToOpen(path);
+    location.replace("./recipeEditor.html")
+    // alert('Open file: ' + node.name + '\n open Recipe not implemented. refer to quick preview');
 }
 
 function selectItem(node, elemRef) {
