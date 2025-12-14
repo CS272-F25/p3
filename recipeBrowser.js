@@ -6,6 +6,7 @@ import {
     findFolder,
     addPrivateFolder,
     addPrivateRecipe,
+    apiID2localRecipe,
 
 } from "./localStorageManager.js";
 
@@ -19,9 +20,9 @@ const breadcrumb = document.getElementById("breadcrumb");
 const pathInfo = document.getElementById("pathInfo");
 const searchInput = document.getElementById("search");
 const upBtn = document.getElementById("upBtn");
-
-
 //Each file/ folder represented as node obj.
+
+
 
 
 //array of active Nodes to be displayed
@@ -101,7 +102,9 @@ window.toggleNode = (node) => {
     }
 };
 
-
+/**
+ * Display Tree view of file system
+ */
 function displayTree() {
     tree.innerHTML = "";
 
@@ -165,7 +168,7 @@ function displayView() {
         el.dataset.title = item.title;
         let totalTime = undefined;
         if (item.type !== "folder") {
-            totalTime = parseInt(item.cookTime) + parseInt(item.prepTime);
+            totalTime = parseInt(item.cookTime) + parseInt(item.prepTime) + " min";
         }
         // TODO: Main view item elements
         el.innerHTML = `
@@ -174,7 +177,7 @@ function displayView() {
                     <div class="fw-bold text-truncate mb-1" style="font-size: 1.5rem">${item.title}</div>
                     <div class="meta d-flex justify-content-between mt-1" style="font-size: 1rem;">
                         <div style="font-size: 1rem">${item.type || item.foodName}</div>
-                        <div>${totalTime || ""} mins</div>
+                        <div>${totalTime || ""}</div>
                     </div>
                 `;
         el.addEventListener("click", () => {
@@ -243,7 +246,7 @@ function selectItem(node, elemRef) {
     Array.from(view.querySelectorAll('.item')).forEach(c => c.classList.remove('selected'));
     if (elemRef) elemRef.classList.add('selected');
 
-    document.getElementById('detailMeta').textContent = (node.rating ? "rating: " + node.rating + ' • ' : '') + (node.prepTime && node.cookTime ? node.prepTime+node.cookTime + " mins" : "");
+    document.getElementById('detailMeta').textContent = (node.rating ? "rating: " + node.rating + ' • ' : '') + (node.prepTime && node.cookTime ? node.prepTime + node.cookTime + " mins" : "");
     document.getElementById('detailName').textContent = node.type || "Recipe";
     const icon = document.getElementById('detailIcon');
     icon.textContent = node.type === 'folder' ? '📁' : '📄';

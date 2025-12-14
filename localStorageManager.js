@@ -1,3 +1,4 @@
+// Updated to include apiRandom2localRecipe and export it
 let sampleRecipeCS472 = {
     public: [],
     private: {
@@ -192,7 +193,7 @@ let sampleRecipeCS472 = {
                         ],
                         tags: ["Vegetarian", "Comfort Food", "Soup"],
                         servings: 4
-                    }
+                    },
                 ]
             }
         }
@@ -308,11 +309,209 @@ function addPrivateFolder(folderName, pathArr, UID = "user1") {
 function addPrivateRecipe(recipe, pathArr, UID = "user1") {
     let node = findFolder(pathArr, UID);
     if (node) {
+        if(node.children.find(c=>c.title===recipe.title)){
+            alert(recipe.title + " already exists!");
+            return false;
+        }
         node.children.push(recipe);
         pushLocalData();
         return true;
     }
     return false;
+}
+
+
+/**
+ * Replaces fraction characters (e.g., ½, ¼, ⅓) in a string
+ * with their decimal equivalents. (e.g., .5, .25, .333)
+ *
+ * It handles both:
+ * - Whole number + space + fraction (e.g., "2 ½")
+ * - Whole number + fraction (e.g., "2½")
+ *
+ * @param {string} inputString The string containing whole numbers and fractions.
+ * @returns {string} The string with fractions converted to decimals.
+ */
+function convertFractionsToDecimals(inputString) {
+    const fractionMap = {
+        // Unicode Fractions
+        '½': '.5',
+        '⅓': '.333',
+        '⅔': '.667',
+        '¼': '.25',
+        '¾': '.75',
+        '⅕': '.2',
+        '⅖': '.4',
+        '⅗': '.6',
+        '⅘': '.8',
+        '⅙': '.167',
+        '⅚': '.833',
+        '⅛': '.125',
+        '⅜': '.375',
+        '⅝': '.625',
+        '⅞': '.875',
+
+        '1/2': '.5',
+        '1/3': '.333',
+        '2/3': '.667',
+        '1/4': '.25',
+        '3/4': '.75',
+        '1/5': '.2',
+        '2/5': '.4',
+        '3/5': '.6',
+        '4/5': '.8',
+        '1/6': '.167',
+        '5/6': '.833',
+        '1/8': '.125',
+        '3/8': '.375',
+        '5/8': '.625',
+        '7/8': '.875'
+    };
+
+    const keys = Object.keys(fractionMap)
+        .sort((a, b) => b.length - a.length)
+        .map(key => key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+
+    const fractionPattern = keys.join('|');
+
+
+    const fractionRegex = new RegExp(`(\\d*)\\s*(${fractionPattern})`, 'g');
+
+    return inputString.replace(fractionRegex, (match, wholeNumber, fractionChar) => {
+        const decimalValue = fractionMap[fractionChar];
+        if (decimalValue) {
+            return (wholeNumber || "") + decimalValue;
+        }
+        return match;
+    });
+}
+
+
+/**
+ * take ID for themealdb.com API and return promise with Recipe object
+ * Warning: Amounts are in string. Some may include non-numeral strings (i.e. 400g)
+ * @param id
+ * @returns {Promise<{Recipe}>}
+ */
+async function apiID2localRecipe(id) {
+    const baseurl = "https://www.themealdb.com/api/json/v1/1/lookup.php?i="
+    return fetch(baseurl + id)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            return res.json();
+        })
+        .then(json => processApiJson(json));
+}
+
+/**
+ * Calls themealdb.com API for a random meal and returns promise with Recipe object
+ * @returns {Promise<{Recipe}>}
+ */
+async function apiRandom2localRecipe() {
+    const randomUrl = "https://www.themealdb.com/api/json/v1/1/random.php";
+    return fetch(randomUrl)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            return res.json();
+        })
+        .then(json => processApiJson(json));
+}
+
+/**
+ * Helper function to process API JSON response into local Recipe object
+ * for API call returning ONLY ONE MEAL
+ * if you want to convert fractions into decimals, set conversion=true
+ * @param json
+ * @param conversion
+ * @returns {{Recipe}}
+ */
+function processApiJson(json, conversion=false) {
+    let newRecipe = {}
+    if (!json.meals || json.meals.length === 0) {
+        throw new Error("Recipe not found.");
+    }
+    let meal = json['meals'][0]
+    newRecipe.id = meal['idMeal'];
+    newRecipe.coverImage = meal['strMealThumb'];
+    newRecipe.instructions = meal['strInstructions'] ? meal['strInstructions'].split(/(?<=[.?!])\s+(?=[A-Z])/) : [];
+    newRecipe.title = meal['strMeal'];
+    newRecipe.description = (meal['strArea'] || '') + " " + (meal['strCategory'] || '') + " " + (meal['strMeal'] || '');
+    newRecipe.foodName = meal['strMeal'];
+
+    newRecipe.tags = meal['strTags'] ? meal['strTags'].split(',').map(tag => tag.trim()).filter(tag => tag) : [];
+    if (meal['strArea']) {
+        newRecipe.tags.push(meal['strArea']);
+    }
+    if (meal['strCategory']) {
+        newRecipe.tags.push(meal['strCategory']);
+    }
+
+    newRecipe.ingredients = []
+    newRecipe.amounts= []
+    newRecipe.units = []
+
+    // Loop for ingredients and measures (up to 20 pairs in TheMealDB API)
+    for (let i = 1; i <= 20; i++) {
+        const ingredientKey = `strIngredient${i}`;
+        const measureKey = `strMeasure${i}`;
+
+        const ingredient = meal[ingredientKey] ? meal[ingredientKey].trim() : null;
+        const measure = meal[measureKey] ? meal[measureKey].trim() : null;
+
+        if (!ingredient) {
+            break;
+        }
+
+        newRecipe.ingredients.push(ingredient);
+
+        if (measure) {
+            let measureParts=[]
+            if (conversion){
+                let measurestr = convertFractionsToDecimals(measure);
+                // console.log(measure);
+                // console.log(measurestr);
+                measureParts = measurestr.split(/\s+/).filter(part => part); // Split by whitespace
+            }else{
+                measureParts = measure.split(/\s+/).filter(part => part); // Split by whitespace
+            }
+
+
+            if (measureParts.length === 0) {
+                newRecipe.amounts.push("");
+                newRecipe.units.push("");
+            } else if (measureParts.length === 1) {
+                // Check if the single part looks like a number (amount) or a string (unit/full measure)
+                if (!isNaN(parseFloat(measureParts[0])) && isFinite(measureParts[0])) {
+                    newRecipe.amounts.push(measureParts[0]);
+                    newRecipe.units.push(""); // Assume it's just an amount
+                } else {
+                    newRecipe.amounts.push("");
+                    newRecipe.units.push(measureParts[0]); // Assume it's a full unit description (e.g., "a handful")
+                }
+            } else {
+                // Simple logic for amount/unit split: assumes first part is amount, rest is unit
+                newRecipe.amounts.push(measureParts[0]);
+                newRecipe.units.push(measureParts.slice(1).join(' '));
+            }
+        } else {
+            newRecipe.amounts.push("");
+            newRecipe.units.push("");
+        }
+    }
+
+    //API does not support these
+    //random cook, prep time by 5min window
+    newRecipe.cookTime = Math.floor(Math.random() * (24 - 3) + 3) * 5;
+    newRecipe.prepTime = Math.floor(Math.random() * (6 - 1) + 1) * 5;
+    newRecipe.servings = 1;
+    newRecipe.favorite=false;
+    newRecipe.rating = 0;
+
+    return newRecipe;
 }
 
 
@@ -324,8 +523,6 @@ export {
     findFolder,
     addPrivateFolder,
     addPrivateRecipe,
+    apiID2localRecipe,
+    apiRandom2localRecipe,
 }
-
-
-
-

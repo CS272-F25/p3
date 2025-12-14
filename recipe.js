@@ -8,16 +8,12 @@ recipe={
     cookTime:undefined,
     servings:undefined,
     ingredients:[],
+    amounts:[],
+    units:[],
     instructions:[],
     tags:[], //list of strings
     favorite: false,
     rating:undefined, //integer
-}
-
-ingredient={
-    name:undefined,
-    quantity:0,
-    unit:undefined,
 }
 
 
