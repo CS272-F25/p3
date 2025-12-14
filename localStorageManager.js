@@ -201,6 +201,7 @@ let sampleRecipeCS472 = {
 }
 const LOCALSTORAGEKEY = "RecipeCS472"
 const OPEN_FILE_SESSION_KEY = "CS472OPENFILEPATH";
+const OPEN_FILE_RECIPE_OBJ = "CS472OPENRECIPEOBJ";
 let localData = null;
 localData = fetchLocalData();
 pushLocalData();
@@ -526,6 +527,19 @@ function getSaveFilePathToOpen() {
     return path;
 }
 
+function setRecipeToOpen(recipe) {
+    sessionStorage.setItem(OPEN_FILE_RECIPE_OBJ, JSON.stringify(recipe));
+}
+
+function getRecipeToOpen() {
+    const data = sessionStorage.getItem(OPEN_FILE_RECIPE_OBJ);
+    // Note: We generally don't remove it immediately if we want to persist it across reloads,
+    // but typically we remove it when consuming it if it's a one-time pass.
+    // For a display page, we usually keep it or re-fetch.
+    // I will return the parsed object.
+    return data ? JSON.parse(data) : null;
+}
+
 
 export {
     localData,
@@ -538,5 +552,7 @@ export {
     apiID2localRecipe,
     apiRandom2localRecipe,
     setSaveFilePathToOpen,
-    getSaveFilePathToOpen
+    getSaveFilePathToOpen,
+    setRecipeToOpen,
+    getRecipeToOpen,
 }
