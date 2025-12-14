@@ -2,24 +2,19 @@ import {
     apiRandom2localRecipe,
     addPrivateRecipe,
     getUserFS,
+    setRecipeToOpen
 } from "./localStorageManager.js";
 
 const SESSION_KEY = "CS472MealPlan3Days";
 const gridContainer = document.getElementById("plannerGrid");
 const refreshBtn = document.getElementById("refreshPlan");
 const saveAllBtn = document.getElementById("saveAll");
-const modalSaveBtn = document.getElementById("modalSaveBtn");
-const modalElement = document.getElementById('recipeModal');
-const recipeModal = new bootstrap.Modal(modalElement);
 const treeContainer = document.getElementById("tree");
 const pathDisplay = document.getElementById("currentPathDisplay");
 
 let FS = getUserFS();
 let selectedSavePath = ['root'];
-let selectedNode = FS;
 window._expanded = new Set(['root']);
-
-let currentModalMeal = null;
 
 document.addEventListener("DOMContentLoaded", () => {
     loadMealPlan();
@@ -107,7 +102,6 @@ function displayTree() {
             e.stopPropagation();
             window.toggleNode(n);
             selectedSavePath = getPathOfNode(n);
-            selectedNode = n;
             pathDisplay.textContent = "Saving to: /" + selectedSavePath.slice(1).join('/');
             displayTree();
         });
@@ -124,10 +118,8 @@ function displayTree() {
     walk(FS, 0);
 }
 
-
-
 refreshBtn.addEventListener("click", () => {
-    if(confirm("Are you sure? This will replace your current meal plan.")){
+    if (confirm("Are you sure? This will replace your current meal plan.")) {
         sessionStorage.removeItem(SESSION_KEY);
         loadMealPlan();
     }
@@ -150,20 +142,6 @@ saveAllBtn.addEventListener("click", () => {
     alert(`Saved ${savedCount} new recipes to "${folderName}"!`);
 });
 
-modalSaveBtn.addEventListener("click", () => {
-    if (currentModalMeal) {
-        const folderName = selectedSavePath.length > 1 ? selectedSavePath[selectedSavePath.length - 1] : "root";
-
-        if(saveRecipeToSelectedFolder(currentModalMeal)) {
-            alert(`"${currentModalMeal.title}" saved to "${folderName}"!`);
-            displayTree();
-            modalSaveBtn.textContent = "Saved!";
-            modalSaveBtn.classList.remove('btn-success');
-            modalSaveBtn.classList.add('btn-secondary');
-            modalSaveBtn.disabled = true;
-        }
-    }
-});
 
 /**
  * Save recipe into a folder selected from left tree view
@@ -173,7 +151,7 @@ modalSaveBtn.addEventListener("click", () => {
  * @returns {boolean}
  */
 function saveRecipeToSelectedFolder(meal, silent = false) {
-    const recipeToSave = { ...meal };
+    const recipeToSave = {...meal};
     const success = addPrivateRecipe(recipeToSave, selectedSavePath);
 
     if (!success && !silent) {
@@ -192,7 +170,7 @@ async function loadMealPlan() {
     if (!meals || meals.length < 9) {
         gridContainer.innerHTML = `<div class="text-center w-100 mt-5">Loading 9 delicious recipes...</div>`;
         try {
-            const promises = Array.from({ length: 9 }, () => apiRandom2localRecipe());
+            const promises = Array.from({length: 9}, () => apiRandom2localRecipe());
             meals = await Promise.all(promises);
             saveMeals(meals);
         } catch (error) {
@@ -229,9 +207,9 @@ function renderGrid(meals) {
     gridContainer.innerHTML = "";
 
     const days = [
-        { name: "Day 1", meals: meals.slice(0, 3) },
-        { name: "Day 2", meals: meals.slice(3, 6) },
-        { name: "Day 3", meals: meals.slice(6, 9) }
+        {name: "Day 1", meals: meals.slice(0, 3)},
+        {name: "Day 2", meals: meals.slice(3, 6)},
+        {name: "Day 3", meals: meals.slice(6, 9)}
     ];
 
     const mealLabels = ["Breakfast", "Lunch", "Dinner"];
@@ -268,49 +246,9 @@ function renderGrid(meals) {
 
     window.viewRecipeDetails = (id) => {
         const meal = meals.find(m => m.id === id);
-        if (meal) openModal(meal);
+        if (meal) {
+            setRecipeToOpen(meal);
+            window.location.href = "recipeDisplay.html";
+        }
     };
-}
-
-/**
- * Display popup modal of given meal object
- * @param meal
- */
-function openModal(meal) {
-    currentModalMeal = meal;
-
-    modalSaveBtn.textContent = "Save to Selected";
-    modalSaveBtn.classList.add('btn-success');
-    modalSaveBtn.classList.remove('btn-secondary');
-    modalSaveBtn.disabled = false;
-
-    document.getElementById('modalTitle').textContent = meal.title;
-
-    let ingredientsList = "";
-    if(meal.ingredients && meal.ingredients.length > 0){
-        ingredientsList = '<ul class="list-group list-group-flush mb-3" style="font-size: 0.9rem;">';
-        meal.ingredients.forEach((ing, i) => {
-            const amt = meal.amounts[i] || "";
-            const unit = meal.units[i] || "";
-            ingredientsList += `<li class="list-group-item bg-transparent text-light border-secondary py-1">${amt} ${unit} ${ing}</li>`;
-        });
-        ingredientsList += '</ul>';
-    }
-
-    const instructions = meal.instructions.map(step => `<li class="mb-2">${step}</li>`).join('');
-
-    const content = `
-        <img src="${meal.coverImage}" class="modal-img-top" alt="${meal.title}">
-        <div class="d-flex justify-content-between mb-3 text-secondary">
-             <span>${parseInt(meal.prepTime) + parseInt(meal.cookTime)} mins</span>
-             <span>${meal.tags.slice(0, 3).join(', ')}</span>
-        </div>
-        <h6 class="fw-bold text-primary">Ingredients</h6>
-        ${ingredientsList}
-        <h6 class="fw-bold text-primary mt-3">Instructions</h6>
-        <ol style="padding-left: 1.2rem; color: #ccc;">${instructions}</ol>
-    `;
-
-    document.getElementById('modalBody').innerHTML = content;
-    recipeModal.show();
 }
