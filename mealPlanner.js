@@ -2,7 +2,9 @@ import {
     apiRandom2localRecipe,
     addPrivateRecipe,
     getUserFS,
-    setRecipeToOpen, setSaveFilePathToOpen
+    setRecipeToOpen,
+    setSaveFilePathToOpen,
+    setSelectedRecipes
 } from "./localStorageManager.js";
 
 const SESSION_KEY = "CS472MealPlan3Days";
@@ -11,6 +13,7 @@ const refreshBtn = document.getElementById("refreshPlan");
 const saveAllBtn = document.getElementById("saveAll");
 const treeContainer = document.getElementById("tree");
 const pathDisplay = document.getElementById("currentPathDisplay");
+const checkoutBtn = document.getElementById("checkoutBtn");
 
 let FS = getUserFS();
 let selectedSavePath = ['root'];
@@ -21,6 +24,15 @@ document.addEventListener("DOMContentLoaded", () => {
     displayTree();
 });
 
+checkoutBtn.addEventListener("click", () => {
+    const meals = getStoredMeals();
+    if(!meals || meals.length === 0) {
+        alert("No meals to checkout!");
+        return;
+    }
+    setSelectedRecipes(meals);
+    window.location.href = "ingredientsCheckout.html";
+});
 
 /**
  *
