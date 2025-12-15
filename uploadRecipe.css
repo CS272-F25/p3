@@ -1,5 +1,5 @@
 /* =========================================
-   Global reset & base
+   1. Global reset & base
    ========================================= */
 
 /* Make width/height easier to reason about */
@@ -12,14 +12,14 @@
 /* Base styles for the whole website */
 body {
   margin: 0;
-  padding: 0;
+  padding: 20px;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.5;
-  background-color: #f0e4c2; /* khaki-like background */
-  color: #333;
+  background-color: #000000;
+  color: #eaeaea;
 }
 
-/* Remove default link underline but keep obvious hover */
+/* Links */
 a {
   color: inherit;
   text-decoration: none;
@@ -30,23 +30,23 @@ a:hover {
 }
 
 /* =========================================
-   Global layout helpers (everyone can use)
+   2. Global layout helpers
    ========================================= */
 
 /* Page main wrapper: center and limit width */
 .page-wrapper {
   max-width: 1100px;
-  margin: 0 auto; /* center horizontally */
+  margin: 0 auto;
 }
 
-/* Generic content container (can be nested) */
+/* Generic content container (can be reused) */
 .container {
   width: 100%;
   max-width: 960px;
   margin: 0 auto;
 }
 
-/* Simple flex helpers */
+/* Simple flex layout utilities */
 .flex-row {
   display: flex;
   flex-direction: row;
@@ -59,17 +59,18 @@ a:hover {
   gap: 12px;
 }
 
-/* Recipe cards, sections, etc. */
+/* Card component (recipe cards, sections, etc.) */
 .card {
-  background-color: #fffaf0;
+  background-color: #0f0f0f;
+  border: 1px solid rgba(255, 255, 255, 0.55); /* brighter white outline */
   border-radius: 6px;
   padding: 12px;
   margin-bottom: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
 }
 
 /* =========================================
-   Global typography (headings for all pages)
+   3. Global typography (headings / text)
    ========================================= */
 
 h1,
@@ -78,8 +79,8 @@ h3,
 h4,
 h5 {
   font-weight: bold;
-  margin-top: 0; /* usually controlled by sections */
-  color: #333;
+  margin-top: 0;
+  color: #f2f2f2;
 }
 
 /* Main page title */
@@ -128,8 +129,17 @@ ol {
   margin-bottom: 0.8em;
 }
 
+/* Preformatted text (code examples) */
+pre {
+  background-color: #0f0f0f;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 10px;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
 /* =========================================
-   Global forms & buttons (everyone can use)
+   4. Global forms & buttons
    ========================================= */
 
 input,
@@ -138,7 +148,9 @@ textarea {
   font: inherit;
   padding: 6px 8px;
   border-radius: 4px;
-  border: 1px solid #bbb;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background-color: #0b0b0b;
+  color: #eaeaea;
 }
 
 /* Base button style */
@@ -153,7 +165,7 @@ button,
   background-color: #fff7dd;
 }
 
-/* Primary button variation (for important actions) */
+/* Primary action button */
 .btn-primary {
   background-color: #f4c464;
   border-color: #d7a63c;
@@ -163,7 +175,7 @@ button,
   background-color: #e4b553;
 }
 
-/* Form field with label + control stacked */
+/* Form group: label + input stacked */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -172,7 +184,7 @@ button,
 }
 
 /* =========================================
-   Upload Recipe page specific
+   5. Upload Recipe page specific
    ========================================= */
 
 .upload-container {
@@ -197,7 +209,43 @@ button,
 }
 
 /* =========================================
-   Responsive design (global)
+   6. Two-column layout for Upload page
+   ========================================= */
+
+/* Outer container for two columns */
+.two-column-layout {
+  display: flex;         /* put left and right next to each other */
+  gap: 24px;
+  align-items: stretch;  /* make columns equal height */
+  margin-top: 16px;
+}
+
+/* Left main content column (about 2/3 width) */
+.main-column {
+  flex: 2;
+  display: flex;
+  flex-direction: column;  /* so inner content flows top-down */
+}
+
+/* Right sidebar column (about 1/3 width) */
+.sidebar-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Make details/summary look nicer */
+details {
+  margin-top: 8px;
+}
+
+details > summary {
+  cursor: pointer;
+  margin-bottom: 0.6em;
+}
+
+/* =========================================
+   7. Responsive design (global)
    ========================================= */
 
 @media (max-width: 768px) {
@@ -216,6 +264,11 @@ button,
 
   h2 {
     font-size: 1.4rem;
+  }
+
+  /* On smaller screens, stack the two columns vertically */
+  .two-column-layout {
+    flex-direction: column;
   }
 }
 
@@ -236,4 +289,13 @@ button,
   .btn {
     padding: 8px 12px; /* easier to tap on phones */
   }
+}
+
+/* =========================================
+   Dark theme extras
+   ========================================= */
+
+:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 2px;
 }
