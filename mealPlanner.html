@@ -1,43 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>3-Day Meal Planner</title>
-    <link rel="stylesheet" type="text/css" href="./global.css">
-    <link rel="stylesheet" type="text/css" href="./mealPlanner.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="./global.css" />
+    <link rel="stylesheet" type="text/css" href="./mealPlanner.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
     <script type="module" src="mealPlanner.js"></script>
-</head>
-<body>
-<div class="browser container-fluid">
-    <!--    left tree view    -->
-    <aside class="panel tree-pane d-none d-md-block" aria-label="Folders">
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container nav-content">
+        <a href="#" class="logo">
+          <span>tagKitchen</span>
+        </a>
+
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+        <label for="nav-toggle" class="nav-toggle-label">
+          <span></span>
+        </label>
+        <div class="nav-links">
+          <a href="index.html">Main</a>
+          <a href="recipeBrowser.html">Browser</a>
+          <a href="recipeEditor.html">Editor</a>
+          <a href="uploadRecipe.html">Upload</a>
+          <a href="recipeBrowser.html">Display</a>
+          <a href="recipeBrowser.html">Checkout</a>
+          <a href="mealPlanner.html">Meal Planner</a>
+        </div>
+      </div>
+    </nav>
+    <div class="browser container-fluid">
+      <!--    left tree view    -->
+      <aside class="panel tree-pane d-none d-md-block" aria-label="Folders">
         <header class="d-flex align-items-center justify-content-between mb-3">
-            <div class="fw-bold">Save Destination</div>
+          <div class="fw-bold">Save Destination</div>
         </header>
-        <div class="text-secondary small mb-2" id="currentPathDisplay">Saving to: /root</div>
+        <div class="text-secondary small mb-2" id="currentPathDisplay">
+          Saving to: /root
+        </div>
         <div class="tree-container" id="tree"></div>
-    </aside>
-    <!--  Meal plan display  -->
-    <main class="panel">
-        <div class="d-flex align-items-center justify-content-between mb-4 text-light py-2">
-            <h1 class="fw-bold m-0 h3">3-Day Meal Planner</h1>
-            <div class="d-flex gap-2">
-                <button id="checkoutBtn" class="btn btn-warning btn-sm text-dark">Checkout Ingredients</button>
-                <button id="saveAll" class="btn btn-primary btn-sm">Save All to Selected</button>
-                <button id="refreshPlan" class="btn btn-outline-light btn-sm ">Refresh Plan</button>
-            </div>
+      </aside>
+      <!--  Meal plan display  -->
+      <main class="panel">
+        <div
+          class="d-flex align-items-center justify-content-between mb-4 text-light py-2"
+        >
+          <h1 class="fw-bold m-0 h3">3-Day Meal Planner</h1>
+          <div class="d-flex gap-2">
+            <button id="checkoutBtn" class="btn btn-warning btn-sm text-dark">
+              Checkout Ingredients
+            </button>
+            <button id="saveAll" class="btn btn-primary btn-sm">
+              Save All to Selected
+            </button>
+            <button id="refreshPlan" class="btn btn-outline-light btn-sm">
+              Refresh Plan
+            </button>
+          </div>
         </div>
         <div class="container-fluid p-0 mb-4 h-100">
-            <div class="row row-cols-1 row-cols-xxl-3 g-4 mb-4" id="plannerGrid">
-            </div>
+          <div
+            class="row row-cols-1 row-cols-xxl-3 g-4 mb-4"
+            id="plannerGrid"
+          ></div>
         </div>
-    </main>
-</div>
-</body>
+      </main>
+    </div>
+  </body>
 </html>

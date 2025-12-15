@@ -12,7 +12,7 @@
 /* Base styles for the whole website */
 body {
   margin: 0;
-  padding: 20px;
+  padding: 0;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.5;
   background-color: #f0e4c2; /* khaki-like background */
@@ -36,7 +36,7 @@ a:hover {
 /* Page main wrapper: center and limit width */
 .page-wrapper {
   max-width: 1100px;
-  margin: 0 auto;      /* center horizontally */
+  margin: 0 auto; /* center horizontally */
 }
 
 /* Generic content container (can be nested) */
@@ -78,7 +78,7 @@ h3,
 h4,
 h5 {
   font-weight: bold;
-  margin-top: 0;            /* usually controlled by sections */
+  margin-top: 0; /* usually controlled by sections */
   color: #333;
 }
 
