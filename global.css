@@ -1,52 +1,213 @@
 :root {
-    --file: #f6c85f;
-    --folder: #ffaf3b;
+  --file: #f6c85f;
+  --folder: #ffaf3b;
 
-    /** Base colors */
-    --clr-dark-a0: #000000;
-    --clr-light-a0: #ffffff;
+  /** Base colors */
+  --clr-dark-a0: #000000;
+  --clr-light-a0: #ffffff;
 
-    /** Theme primary colors */
-    --clr-primary-a0: #21a6d0;
-    --clr-primary-a10: #4db0d5;
-    --clr-primary-a20: #69b9db;
-    --clr-primary-a30: #82c3e0;
-    --clr-primary-a40: #99cde5;
-    --clr-primary-a50: #aed7ea;
+  /** Theme primary colors */
+  --clr-primary-a0: #21a6d0;
+  --clr-primary-a10: #4db0d5;
+  --clr-primary-a20: #69b9db;
+  --clr-primary-a30: #82c3e0;
+  --clr-primary-a40: #99cde5;
+  --clr-primary-a50: #aed7ea;
 
-    /** Theme surface colors */
-    --clr-surface-a0: #121212;
-    --clr-surface-a10: #282828;
-    --clr-surface-a20: #3f3f3f;
-    --clr-surface-a30: #575757;
-    --clr-surface-a40: #717171;
-    --clr-surface-a50: #8b8b8b;
+  /** Theme surface colors */
+  --clr-surface-a0: #121212;
+  --clr-surface-a10: #282828;
+  --clr-surface-a20: #3f3f3f;
+  --clr-surface-a30: #575757;
+  --clr-surface-a40: #717171;
+  --clr-surface-a50: #8b8b8b;
 
-    /** Theme tonal surface colors */
-    --clr-surface-tonal-a0: #181f22;
-    --clr-surface-tonal-a10: #2d3437;
-    --clr-surface-tonal-a20: #444a4c;
-    --clr-surface-tonal-a30: #5c6163;
-    --clr-surface-tonal-a40: #75797b;
-    --clr-surface-tonal-a50: #8f9394;
+  /** Theme tonal surface colors */
+  --clr-surface-tonal-a0: #181f22;
+  --clr-surface-tonal-a10: #2d3437;
+  --clr-surface-tonal-a20: #444a4c;
+  --clr-surface-tonal-a30: #5c6163;
+  --clr-surface-tonal-a40: #75797b;
+  --clr-surface-tonal-a50: #8f9394;
 
-    /** Success colors */
-    --clr-success-a0: #22946e;
-    --clr-success-a10: #47d5a6;
-    --clr-success-a20: #9ae8ce;
+  /** Success colors */
+  --clr-success-a0: #22946e;
+  --clr-success-a10: #47d5a6;
+  --clr-success-a20: #9ae8ce;
 
-    /** Warning colors */
-    --clr-warning-a0: #a87a2a;
-    --clr-warning-a10: #d7ac61;
-    --clr-warning-a20: #ecd7b2;
+  /** Warning colors */
+  --clr-warning-a0: #a87a2a;
+  --clr-warning-a10: #d7ac61;
+  --clr-warning-a20: #ecd7b2;
 
-    /** Danger colors */
-    --clr-danger-a0: #9c2121;
-    --clr-danger-a10: #d94a4a;
-    --clr-danger-a20: #eb9e9e;
+  /** Danger colors */
+  --clr-danger-a0: #9c2121;
+  --clr-danger-a10: #d94a4a;
+  --clr-danger-a20: #eb9e9e;
 
-    /** Info colors */
-    --clr-info-a0: #21498a;
-    --clr-info-a10: #4077d1;
-    --clr-info-a20: #92b2e5;
+  /** Info colors */
+  --clr-info-a0: #21498a;
+  --clr-info-a10: #4077d1;
+  --clr-info-a20: #92b2e5;
+
+  /** Nav bar **/
+  --bg-body: #121212;
+  --bg-surface: #1e1e1e;
+  --bg-surface-hover: #2c2c2c;
+  --primary: #8ab4f8;
+  --primary-hover: #aecbfa;
+  --accent: #c2e7ff;
+  --text-main: #e8eaed;
+  --text-sub: #9aa0a6;
+  --border: #3c4043;
+  --nav-height: 64px;
+  --radius-lg: 24px;
+  --radius-md: 12px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: var(--nav-height);
+  background: rgba(18, 18, 18, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  font-family: "Google Sans", "Inter", -apple-system, BlinkMacSystemFont,
+    sans-serif;
+}
+
+.navbar .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo span {
+  color: var(--primary);
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-links a {
+  font-size: 0.95rem;
+  color: var(--text-sub);
+  transition: var(--transition);
+  position: relative;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text-main);
+}
+
+.nav-toggle {
+  display: none;
+}
+
+.nav-toggle-label {
+  display: none;
+  cursor: pointer;
+  padding: 10px;
+  align-items: center;
+}
+
+.nav-toggle-label span,
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+  display: block;
+  background: var(--text-main);
+  height: 2px;
+  width: 24px;
+  border-radius: 2px;
+  position: relative;
+  transition: var(--transition);
+}
+
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+  content: "";
+  position: absolute;
+}
+
+.nav-toggle-label span::before {
+  bottom: 8px;
+}
+.nav-toggle-label span::after {
+  top: 8px;
+}
+
+@media (max-width: 900px) {
+  .nav-toggle-label {
+    display: flex;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    gap: 20px;
+    transform: scaleY(0);
+    transform-origin: top;
+    opacity: 0;
+    transition: var(--transition);
+  }
+
+  .nav-links a {
+    font-size: 1.1rem;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  #nav-toggle:checked ~ .nav-links {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+
+  #nav-toggle:checked ~ .nav-toggle-label span {
+    background: transparent;
+  }
+  #nav-toggle:checked ~ .nav-toggle-label span::before {
+    bottom: 0;
+    transform: rotate(45deg);
+  }
+  #nav-toggle:checked ~ .nav-toggle-label span::after {
+    top: 0;
+    transform: rotate(-45deg);
+  }
 }

@@ -4,9 +4,31 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recipe Editor</title>
+    <link href="global.css" rel="stylesheet" />
     <link href="recipeEditor.css" rel="stylesheet" />
   </head>
   <body>
+    <nav class="navbar">
+      <div class="container nav-content">
+        <a href="#" class="logo">
+          <span>tagKitchen</span>
+        </a>
+
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+        <label for="nav-toggle" class="nav-toggle-label">
+          <span></span>
+        </label>
+        <div class="nav-links">
+          <a href="index.html">Main</a>
+          <a href="recipeBrowser.html">Browser</a>
+          <a href="recipeEditor.html">Editor</a>
+          <a href="uploadRecipe.html">Upload</a>
+          <a href="recipeBrowser.html">Display</a>
+          <a href="recipeBrowser.html">Checkout</a>
+          <a href="mealPlanner.html">Meal Planner</a>
+        </div>
+      </div>
+    </nav>
     <div class="flex-center">
       <form id="recipe-editor-form" class="form-container">
         <div class="grid-container">
