@@ -2,10 +2,10 @@
 
 
 # Job Assignment
-- DaeOck Kim:   Recipe Broser, What should I eat
-- Qixuan Chen:  Recipe Editor, Community uploaded Recipe
-- Zongze Lu:    Upload Recipe, Content Creation & CSS styling
-- Caleb Kapen:  Recipe Display, Ingredients checkout
+- DaeOck Kim:   Recipe Browser, What should I eat, Recipe Display, Ingredients Checkout
+- Qixuan Chen:  Recipe Editor, Community uploaded Recipe, Front Page
+- Zongze Lu:    Upload Recipe
+- Caleb Kapen:  n/a
 
 
 # Reminder
@@ -18,8 +18,5 @@
 - Consider using bootstrap for responsive design.
 
 # TODO
-- change all websites in light theme
 - restructure all css files to have same variable names
-- 
-- 
-- light / dark theme toggle
+

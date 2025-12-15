@@ -1,3 +1,4 @@
+//Use this as reference for recipe object structure
 recipe={
     id:undefined,
     coverImage:undefined,

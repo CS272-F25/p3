@@ -23,8 +23,8 @@ window._expanded = new Set(['root']);
 document.addEventListener("DOMContentLoaded", () => {
     currentRecipe = getRecipeToOpen();
     if (!currentRecipe) {
-        alert("No recipe selected. Returning to planner.");
-        window.location.href = "mealPlanner.html";
+        alert("No recipe selected. Returning to browser.");
+        window.location.href = "recipeBrowser.html";
         return;
     }
     renderRecipe(currentRecipe);
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 backBtn.addEventListener("click", () => {
-    window.location.href = "mealPlanner.html";
+    history.back();
 });
 
 saveBtn.addEventListener("click", () => {
