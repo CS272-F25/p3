@@ -1,13 +1,18 @@
 import {
     getUserFS,
     setSaveFilePathToOpen,
-    setRecipeToOpen, addPrivateRecipe
+    setRecipeToOpen,
+    addPrivateRecipe,
+    setSelectedRecipes,
+    getSelectedRecipes
 } from "./localStorageManager.js";
 
 let FS = getUserFS();
 let currentPath = ["root"];
 let currentNode = FS;
 let selected = null;
+let checkoutSelection = new Set();
+
 const tree = document.getElementById("tree");
 const view = document.getElementById("view");
 const breadcrumb = document.getElementById("breadcrumb");
@@ -182,16 +187,27 @@ function displayView() {
         const iconClass = `icon ${item.type === "folder" ? "folder" : "file"} mb-2`;
 
         // fav icon (heart)
-        let heartHtml = "";
+        let heartHTML = "";
         if (item.type !== "folder") {
             const heartIconClass = item.favorite ? "bi-heart-fill text-danger" : "bi-heart";
-            heartHtml = `<div class="fav-icon position-absolute top-0 start-0 m-2 p-1 rounded-circle bg-opacity-50 text-light" style="cursor: pointer; z-index: 10;">
+            heartHTML = `<div class="fav-icon position-absolute top-0 start-0 m-2 p-1 rounded-circle bg-opacity-50 text-light" style="cursor: pointer; z-index: 10;">
                             <i class="bi ${heartIconClass}" style="font-size: 1.2rem;"></i>
                          </div>`;
         }
 
+        // checkbox
+        let checkboxHTML = "";
+
+        if (item.type !== "folder") {
+            const isChecked = checkoutSelection.has(item) ? "checked" : "";
+            checkboxHTML = `<div class="select-checkbox position-absolute top-0 end-0 m-2 p-1 z-3">
+                                <input class="form-check-input border-secondary" type="checkbox" ${isChecked} style="cursor: pointer; width: 1.2rem; height: 1.2rem;">
+                            </div>`;
+        }
+
         el.innerHTML = `
-                    ${heartHtml}
+                    ${heartHTML}
+                    ${checkboxHTML}
                     <div class="${iconClass}" style="${item.coverImage && item.type !== 'folder' ? 'opacity:0' : ''}">${typeIcon}</div>
                     <div class="content-wrapper position-relative" style="z-index: 2;">
                         <div class="fw-bold text-truncate mb-1" style="font-size: 1.5rem; text-shadow: ${item.coverImage ? '0 2px 4px rgba(0,0,0,0.8)' : 'none'}">${item.title}</div>
@@ -202,6 +218,7 @@ function displayView() {
                     </div>
                 `;
 
+        //fave (heart) onClick
         if (item.type !== "folder") {
             const heartBtn = el.querySelector('.fav-icon');
             if (heartBtn) {
@@ -213,8 +230,32 @@ function displayView() {
                     displayView();
                     if (selected === item) selectItem(item);
                 });
+                heartBtn.addEventListener("dblclick", (e) => {
+                    e.stopPropagation();
+                })
             }
         }
+
+        // Checkbox Click Event
+        const checkboxDiv = el.querySelector('.select-checkbox input');
+        if (checkboxDiv) {
+            checkboxDiv.addEventListener("click", (e) => {
+                e.stopPropagation(); // Stop card click
+            });
+            checkboxDiv.addEventListener("change", (e) => {
+                if (e.target.checked) {
+                    checkoutSelection.add(item);
+                } else {
+                    checkoutSelection.delete(item);
+                }
+                updateGetIngredientsBtn();
+            });
+            checkboxDiv.addEventListener("dblclick", (e) => {
+                e.stopPropagation();
+            })
+        }
+
+
 
         el.addEventListener("click", () => {
             selectItem(item, el);
@@ -238,6 +279,18 @@ function displayView() {
     })
 }
 
+/**
+ * Update button state based on selection
+ */
+function updateGetIngredientsBtn() {
+    if (checkoutSelection.size > 0) {
+        getIngredientsBtn.classList.remove('btn-secondary');
+        getIngredientsBtn.classList.add('btn-warning');
+        getIngredientsBtn.style.opacity = "1";
+    } else {
+        getIngredientsBtn.style.opacity = "0.7";
+    }
+}
 
 /**
  * Display top breadcrumb
@@ -380,6 +433,20 @@ upBtn.addEventListener("click", () => {
         displayAll();
     }
 })
+
+getIngredientsBtn.addEventListener("click", () => {
+    if (checkoutSelection.size === 0) {
+        alert("Please select at least one recipe");
+        return;
+    }
+    const recipesArray = Array.from(checkoutSelection);
+    setSelectedRecipes(recipesArray);
+    let checkboxCollection  = document.getElementsByClassName('form-check-input');
+    for (const c of checkboxCollection) {
+        c.checked = false;
+    }
+    window.location.href = "ingredientsCheckout.html";
+});
 
 searchInput.addEventListener("input", () => displayView());
 

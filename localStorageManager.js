@@ -587,7 +587,7 @@ function setSelectedRecipes(recipes) {
  */
 function getSelectedRecipes() {
     const data = sessionStorage.getItem(SELECTED_RECIPES_KEY);
-    sessionStorage.removeItem(SELECTED_RECIPES_KEY);
+    // sessionStorage.removeItem(SELECTED_RECIPES_KEY);
     return data ? JSON.parse(data) : null;
 }
 
