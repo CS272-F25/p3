@@ -1,4 +1,9 @@
-import { getSaveFilePathToOpen, getUserFS } from "./localStorageManager.js";
+import {
+  getUserFS,
+  addPrivateRecipe,
+  getRecipeToOpen,
+  getSaveFilePathToOpen,
+} from "./localStorageManager.js";
 
 console.log("recipeEditor.js loaded successfully!");
 
@@ -6,7 +11,9 @@ document.addEventListener("DOMContentLoaded", initListener);
 
 const recipePath = getSaveFilePathToOpen();
 
-const curRecipe = findRecipeByPath(recipePath) ?? {
+console.log(recipePath);
+
+const curRecipe = getRecipeToOpen() ?? {
   id: null,
   coverImage: "test_recipe.jpg",
   title: "Enter Recipe Title Here",
@@ -21,24 +28,7 @@ const curRecipe = findRecipeByPath(recipePath) ?? {
   servings: 1,
 };
 
-/**
- *
- * @param {node[]}pathArr array of nodes from root
- * @returns {node|null} node object found from a file system
- * @description
- * take array of nodes as path and return node object if found.
- */
-
-function findRecipeByPath(pathArr) {
-  let node = getUserFS();
-  for (let i = 1; i < pathArr.length; i++) {
-    const name = pathArr[i];
-    if (!node.children) return null;
-    node = node.children.find((c) => c.title === name);
-    if (!node) return null;
-  }
-  return node;
-}
+console.log(curRecipe);
 
 let latestServings;
 
@@ -88,19 +78,18 @@ function loadRecipeToHTML(curRecipe) {
  */
 function saveRecipes(e) {
   e.preventDefault();
-  saveRecipe(currentRecipeId);
+  saveRecipe();
 }
 
 /**
  * Saves the current recipe form data to localStorage
- * @param {number} id - The recipe ID to save
+ *
  */
-function saveRecipe(id) {
-  console.log(`Start saving recipe with the id ${id} to localStorage...`);
-  const recipes = JSON.parse(localStorage.getItem("recipes") || "[]");
+function saveRecipe() {
+  console.log(`Start saving recipe to localStorage...`);
 
   const recipe = {
-    id: id,
+    id: curRecipe.id ?? Date.now(),
     coverImage: document.getElementById("recipe-cover-img").src,
     title: document.getElementById("recipe-title-value").value,
     foodName: document.getElementById("recipe-title-value").value,
@@ -151,16 +140,10 @@ function saveRecipe(id) {
     }
   });
 
-  // Update or add recipe in localStorage
-  const existingIndex = recipes.findIndex((r) => r.id === id);
-  if (existingIndex !== -1) {
-    recipes[existingIndex] = recipe;
-  } else {
-    recipes.push(recipe);
-  }
+  console.log(recipe);
 
-  localStorage.setItem("recipes", JSON.stringify(recipes));
-  console.log("Recipe saved", localStorage.getItem("recipes"));
+  // Update or add recipe in localStorage
+  addPrivateRecipe(recipe, recipePath, "user1", true);
 }
 
 /**
