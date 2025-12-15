@@ -334,6 +334,22 @@ function addPrivateRecipe(recipe, pathArr, UID = "user1", overwrite=false) {
 }
 
 
+function removePrivateItem(item, pathArr, UID = "user1") {
+    let node= findFolder(pathArr, UID);
+    if (node) {
+        const targetIndex = node.children.findIndex(c =>  c.title === item.title);
+        if (targetIndex !== -1) {
+            node.children.splice(targetIndex, 1);
+        }else{
+            return false;
+        }
+    }else{
+        return false;
+    }
+    pushLocalData();
+    return true;
+}
+
 /**
  * Replaces fraction characters (e.g., ½, ¼, ⅓) in a string
  * with their decimal equivalents. (e.g., .5, .25, .333)
@@ -591,6 +607,13 @@ function getSelectedRecipes() {
     return data ? JSON.parse(data) : null;
 }
 
+/**
+ * reload data
+ */
+function reloadData() {
+    localData=fetchLocalData();
+}
+
 export {
     localData,
     getPublicRecipes,
@@ -608,4 +631,6 @@ export {
     convertFractionsToDecimals,
     setSelectedRecipes,
     getSelectedRecipes,
+    reloadData,
+    removePrivateItem,
 }

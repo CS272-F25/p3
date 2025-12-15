@@ -4,7 +4,9 @@ import {
     setRecipeToOpen,
     addPrivateRecipe,
     setSelectedRecipes,
-    getSelectedRecipes
+    addPrivateFolder,
+    reloadData,
+    removePrivateItem,
 } from "./localStorageManager.js";
 
 let FS = getUserFS();
@@ -19,6 +21,14 @@ const breadcrumb = document.getElementById("breadcrumb");
 const pathInfo = document.getElementById("pathInfo");
 const searchInput = document.getElementById("search");
 const upBtn = document.getElementById("upBtn");
+const btnNewRecipe = document.getElementById("btnNewRecipe");
+const btnNewFolder = document.getElementById("btnNewFolder");
+const confirmNewFolderBtn = document.getElementById("confirmNewFolderBtn");
+const folderNameInput = document.getElementById("folderNameInput");
+const getIngredientsBtn = document.getElementById("getIngredientsBtn");
+const newFolderModal = new bootstrap.Modal(document.getElementById('newFolderModal'));
+const deleteBtn = document.getElementById("deleteBtn");
+
 //Each file/ folder represented as node obj.
 
 
@@ -178,6 +188,8 @@ function displayView() {
             if (item.coverImage) {
                 el.style.backgroundImage = `url(${item.coverImage})`;
                 el.classList.add('has-bg');
+            }else{
+                el.style.background="var(--clr-surface-a40) !important"
             }
         } else {
             el.setAttribute('style', 'background: var(--clr-surface-a10) !important');
@@ -287,8 +299,11 @@ function updateGetIngredientsBtn() {
         getIngredientsBtn.classList.remove('btn-secondary');
         getIngredientsBtn.classList.add('btn-warning');
         getIngredientsBtn.style.opacity = "1";
+
+        deleteBtn.classList.remove('d-none');
     } else {
         getIngredientsBtn.style.opacity = "0.7";
+        deleteBtn.classList.add('d-none');
     }
 }
 
@@ -426,6 +441,7 @@ function selectItem(node, elemRef) {
     }
 }
 
+
 upBtn.addEventListener("click", () => {
     if (currentPath.length > 1) {
         currentPath.pop();
@@ -448,8 +464,106 @@ getIngredientsBtn.addEventListener("click", () => {
     window.location.href = "ingredientsCheckout.html";
 });
 
+btnNewRecipe.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const emptyRecipe = {
+        id: Date.now(),
+        title: "New Recipe",
+        foodName: "",
+        description: "",
+        coverImage: null,
+        ingredients: [],
+        amounts: [],
+        units: [],
+        instructions: [],
+        tags: [],
+        prepTime: 0,
+        cookTime: 0,
+        servings: 1,
+        favorite: false,
+        rating: 0,
+        type: "file"
+    };
+    setSaveFilePathToOpen(currentPath);
+
+    setRecipeToOpen(emptyRecipe);
+
+    window.location.href = "recipeEditor.html";
+});
+
+
+btnNewFolder.addEventListener("click", (e) => {
+    e.preventDefault();
+    folderNameInput.value = "";
+    newFolderModal.show();
+    setTimeout(() => folderNameInput.focus(), 500);
+});
+
+confirmNewFolderBtn.addEventListener("click", () => {
+    const name = folderNameInput.value.trim();
+    if (!name) {
+        alert("Please enter a folder name.");
+        return;
+    }
+
+    // Try adding the folder using localStorageManager
+    const success = addPrivateFolder(name, currentPath);
+
+    if (success) {
+        // Refresh UI
+        // currentNode is already up to date because we use currentPath references,
+        // but we need to re-fetch the node to see the new child
+        currentNode = findNodeByPath(currentPath);
+        displayAll();
+        newFolderModal.hide();
+    }
+});
+
+folderNameInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        confirmNewFolderBtn.click();
+    }
+});
+
+
 searchInput.addEventListener("input", () => displayView());
 
+//this page has to be updated all the time
+window.addEventListener('pageshow', (event) => {
+    if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {
+        reloadData();
+        FS = getUserFS();
+        currentNode = findNodeByPath(currentPath) || FS;
+        displayAll();
+    }
+});
+
+
+deleteBtn.addEventListener("click", () => {
+    if (checkoutSelection.size === 0) return;
+
+    // const count = checkoutSelection.size;
+    // if (!confirm(`Delete ${count} item(s)? This cannot be undone.`)) {
+    //     return;
+    // }
+
+    const itemsToDelete = Array.from(checkoutSelection);
+    itemsToDelete.forEach(item => {
+        const fullPath = getPathOfNode(item);
+        const parentPath = fullPath.slice(0, -1);
+        removePrivateItem(item, parentPath);
+    });
+
+    // 4. Clear selection and refresh UI
+    checkoutSelection.clear();
+
+    // Refresh the current folder node to reflect deletions
+    currentNode = findNodeByPath(currentPath);
+
+    displayAll();
+    updateGetIngredientsBtn(); // Helper to hide buttons (see step C)
+});
 
 currentNode = FS;
 displayAll();

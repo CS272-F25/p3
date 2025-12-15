@@ -79,6 +79,7 @@ function loadRecipeToHTML(curRecipe) {
 function saveRecipes(e) {
   e.preventDefault();
   saveRecipe();
+  history.go(-1);
 }
 
 /**
