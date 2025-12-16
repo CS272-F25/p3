@@ -135,12 +135,11 @@ Add the rest of the soy sauce and stir to combine.
               section
             </li>
             <li>
-              After <code>Ingredients:</code>, each line is one ingredient:
-              <code>name,quantity,unit</code><br />
+              After <code>Ingredients:</code>, each line is one ingredient: <code>name,amount,unit</code>.<br />
+              We store three parallel arrays (same index):<br />
+              <code>recipe.ingredients[i] = name</code>, <code>recipe.amounts[i] = amount</code>, <code>recipe.units[i] = unit</code>.<br />
               Example:<br />
-              <code>egg,2,pcs</code> → stored as one ingredient with<br />
-              <code>name = "egg"</code>, <code>quantity = 2</code>,
-              <code>unit = "pcs"</code>
+              <code>egg,2,pcs</code> → <code>ingredients=["egg"]</code>, <code>amounts=["2"]</code>, <code>units=["pcs"]</code>
             </li>
             <li>Blank line</li>
             <li>
@@ -183,9 +182,8 @@ Add the rest of the soy sauce and stir to combine.
       </main>
     </div>
 
+
     <!-- Data + logic scripts -->
-    <script src="localStorageManager.js"></script>
-    <script src="recipe.js"></script>
-    <script src="upload.js"></script>
+    <script type="module" src="upload.js"></script>
   </body>
 </html>
