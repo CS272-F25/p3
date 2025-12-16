@@ -105,12 +105,45 @@
               <strong>UP</strong>
             </button>
             <button
+              class="upBtn text-danger d-none"
+              id="deleteBtn"
+              title="Delete Selected"
+            >
+              <i class="bi bi-trash-fill me-1"></i>
+              <strong>Delete</strong>
+            </button>
+            <button
               class="upBtn"
               id="getIngredientsBtn"
               title="Get Ingredients"
             >
-              <i class="bi bi-cart-plus me-1"></i> Ingredients
+              <i class="bi bi-cart-plus me-1"></i>
+              <strong>Checkout</strong>
             </button>
+            <div class="dropdown">
+              <button
+                class="addBtn dropdown-toggle"
+                type="button"
+                id="addBtn"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="bi bi-plus-circle me-1"></i>
+                <strong>Add</strong>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="addBtn">
+                <li>
+                  <a class="dropdown-item" href="#" id="btnNewRecipe"
+                    ><i class="bi bi-file-earmark-plus me-1"></i> New Recipe</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" id="btnNewFolder"
+                    ><i class="bi bi-folder-plus me-1"></i> New Folder</a
+                  >
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <div class="container-fluid">
@@ -148,6 +181,65 @@
           <div id="previewInner">Nothing selected</div>
         </div>
       </aside>
+    </div>
+    <div
+      class="modal fade"
+      id="newFolderModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div
+          class="modal-content"
+          style="background: var(--clr-surface-a10); color: var(--clr-light-a0)"
+        >
+          <div
+            class="modal-header"
+            style="border-bottom-color: var(--clr-surface-a30)"
+          >
+            <h5 class="modal-title">New Folder</h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <label for="folderNameInput" class="form-label">Folder Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="folderNameInput"
+              placeholder="i.e. Desserts"
+              style="
+                background: var(--clr-surface-a20);
+                color: #fff;
+                border: 1px solid var(--clr-surface-a30);
+              "
+            />
+          </div>
+          <div
+            class="modal-footer"
+            style="border-top-color: var(--clr-surface-a30)"
+          >
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="confirmNewFolderBtn"
+            >
+              Create
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>

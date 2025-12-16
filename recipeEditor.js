@@ -80,7 +80,6 @@ function loadRecipeToHTML(curRecipe) {
 function saveRecipes(e) {
   e.preventDefault();
   saveRecipe();
-  history.go(-1);
 }
 
 /**
@@ -149,6 +148,10 @@ function saveRecipe() {
 
   if (result) {
     showNotification("Recipe saved successfully!", "success");
+
+    setTimeout(() => {
+      history.go(-1);
+    }, 1500);
   } else {
     showNotification("Failed to save recipe. Please try again.", "error");
   }
