@@ -1,5 +1,4 @@
 import {
-  getUserFS,
   addPrivateRecipe,
   getRecipeToOpen,
   getSaveFilePathToOpen,
@@ -9,9 +8,11 @@ console.log("recipeEditor.js loaded successfully!");
 
 document.addEventListener("DOMContentLoaded", initListener);
 
-const recipePath = getSaveFilePathToOpen();
+const recipePath = getSaveFilePathToOpen() || ["root"];
 
 console.log(recipePath);
+
+addPathToHTML();
 
 const curRecipe = getRecipeToOpen() ?? {
   id: null,
@@ -144,7 +145,23 @@ function saveRecipe() {
   console.log(recipe);
 
   // Update or add recipe in localStorage
-  addPrivateRecipe(recipe, recipePath, "user1", true);
+  const result = addPrivateRecipe(recipe, recipePath, "user1", true);
+
+  if (result) {
+    showNotification("Recipe saved successfully!", "success");
+  } else {
+    showNotification("Failed to save recipe. Please try again.", "error");
+  }
+}
+
+/**
+ * Display the file path in the HTML
+ */
+function addPathToHTML() {
+  const pathDiv = document.getElementById("recipe-path");
+  if (pathDiv) {
+    pathDiv.textContent = " / " + recipePath.join(" / ");
+  }
 }
 
 /**
@@ -181,17 +198,6 @@ function addInstructionToHTML() {
 function deleteListItem(e) {
   const itemDiv = e.target.parentElement;
   itemDiv.remove();
-}
-
-/**
- * Retrieves a recipe by its ID from localStorage
- * @param {number} id - The recipe ID to retrieve
- * @returns {Object|undefined} The recipe object if found, otherwise undefined
- */
-function getRecipeById(id) {
-  const storedRecipes = JSON.parse(localStorage.getItem("recipes") || "[]");
-  const recipe = storedRecipes.find((recipe) => recipe.id === id);
-  return recipe;
 }
 
 /**
@@ -419,6 +425,38 @@ function createInstructionDiv(instruction) {
   contentDiv.appendChild(deleteBtn);
 
   return instructionDiv;
+}
+
+/**
+ * Displays a pop-up notification
+ * @param {string} message - Text to display
+ * @param {string} type - 'success' or 'error'
+ */
+function showNotification(message, type) {
+  const notification = document.getElementById("notification-popup");
+
+  if (!notification) return;
+
+  // Set message
+  notification.textContent = message;
+
+  // Reset classes
+  notification.className = "notification";
+
+  // Add specific type class
+  notification.classList.add(type);
+
+  // Add 'show' class to make it visible
+  // Small timeout ensures the browser registers the class removal before adding 'show'
+  // if the user clicks save rapidly
+  setTimeout(() => {
+    notification.classList.add("show");
+  }, 10);
+
+  // Hide after 3 seconds
+  setTimeout(() => {
+    notification.classList.remove("show");
+  }, 3000);
 }
 
 /**
