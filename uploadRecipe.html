@@ -1,74 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8"/>
     <!-- Let the page scale correctly on phones -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Upload Recipe - Recipe Manager</title>
 
     <!-- Apply global CSS -->
-    <link rel="stylesheet" type="text/css" href="./global.css" />
-    <link rel="stylesheet" href="uploadRecipe.css" />
-  </head>
-  <body>
-    <nav class="navbar">
-      <div class="container nav-content">
-        <a href="#" class="logo">
-          <span>tagKitchen</span>
-        </a>
+    <link rel="stylesheet" type="text/css" href="./global.css">
+    <link rel="stylesheet" href="uploadRecipe.css"/>
+</head>
+<body>
+<!-- Main wrapper: matches .page-wrapper in styles.css -->
+<div class="page-wrapper">
 
-        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
-        <label for="nav-toggle" class="nav-toggle-label">
-          <span></span>
-        </label>
-        <div class="nav-links">
-          <a href="index.html">Main</a>
-          <a href="recipeBrowser.html">Browser</a>
-          <a href="recipeEditor.html">Editor</a>
-          <a href="uploadRecipe.html" class="active">Upload</a>
-          <a href="recipeBrowser.html">Display</a>
-          <a href="recipeBrowser.html">Checkout</a>
-          <a href="mealPlanner.html">Meal Planner</a>
-        </div>
-      </div>
-    </nav>
-    <!-- Main wrapper: matches .page-wrapper in styles.css -->
-    <div class="page-wrapper">
-      <!-- Page header -->
-      <header>
+    <!-- Page header -->
+    <header>
         <h1>Upload Recipe</h1>
         <p>
-          Use this page to import your recipe from a text file into Recipe
-          Manager.
+            Use this page to import your recipe from a text file into Recipe Manager.
         </p>
-      </header>
+    </header>
 
-      <!-- Main content -->
-      <main>
-        <!-- Instruction block -->
-        <section class="card">
+    <!-- Main content -->
+    <main>
+
+      <!-- 2 Colums -->
+      <div class="two-column-layout">
+
+        <!-- LEFT: instructions column -->
+        <section class="card main-column">
           <h2>Upload Instructions</h2>
 
-          <h3>Check Before Uploading The File:</h3>
+          <h3>Check Before Uploading The File: </h3>
           <ul>
-            <li>
-              <strong>Uploaded file must be <code>.txt</code>.</strong>
-            </li>
+            <li><strong>Uploaded file must be <code>.txt</code>.</strong></li>
             <li>Only one recipe per file.</li>
-            <li>
-              The file must follow the required recipe text format shown below.
-            </li>
+            <li>The file must follow the required recipe text format shown below.</li>
           </ul>
 
-          <h3>Required Format for The .txt File:</h3>
+          <h3>Required Format for The .txt File: </h3>
           <p>
-            The text file is divided into three parts: basic information, an
-            <strong>Ingredients</strong> section, and an
-            <strong>Instructions</strong> section.
+            The text file is divided into three parts:
+            basic information, an <strong>Ingredients</strong> section,
+            and an <strong>Instructions</strong> section.
           </p>
 
           <!-- Example format shown as code -->
-          <h4>Example:</h4>
+          <h4>Example: </h4>
           <pre>
 Title: Tomato Egg Stir Fry
 FoodName: Tomato Egg Stir Fry
@@ -96,71 +75,39 @@ Add the diced tomatoes and 1 tsp of sugar to the pan.
 When the diced tomatoes release plenty of juice, add the tomato chunks.
 Return the eggs to the pan and stir-fry everything together.
 Add the rest of the soy sauce and stir to combine.
-        </pre
-          >
+          </pre>
 
-          <h3>Line-by-line Explanation:</h3>
-          <ul>
-            <li>
-              <code>Title:</code> → recipe title (stored in
-              <code>recipe.title</code>)
-            </li>
-            <li>
-              <code>FoodName:</code> → full name of the dish
-              (<code>recipe.foodName</code>)
-            </li>
-            <li>
-              <code>Description:</code> → short description
-              (<code>recipe.description</code>)
-            </li>
-            <li>
-              <code>PrepTime:</code> → preparation time in minutes
-              (<code>recipe.prepTime</code>)
-            </li>
-            <li>
-              <code>CookTime:</code> → cooking time in minutes
-              (<code>recipe.cookTime</code>)
-            </li>
-            <li>
-              <code>Servings:</code> → number of servings
-              (<code>recipe.servings</code>)
-            </li>
-            <li>
-              <code>CoverImage:</code> → optional URL or text for the cover
-              image (<code>recipe.coverImage</code>)
-            </li>
-            <li>Blank line</li>
-            <li>
-              <code>Ingredients:</code> → marks the beginning of the ingredients
-              section
-            </li>
-            <li>
-              After <code>Ingredients:</code>, each line is one ingredient: <code>name,amount,unit</code>.<br />
-              We store three parallel arrays (same index):<br />
-              <code>recipe.ingredients[i] = name</code>, <code>recipe.amounts[i] = amount</code>, <code>recipe.units[i] = unit</code>.<br />
-              Example:<br />
-              <code>egg,2,pcs</code> → <code>ingredients=["egg"]</code>, <code>amounts=["2"]</code>, <code>units=["pcs"]</code>
-            </li>
-            <li>Blank line</li>
-            <li>
-              <code>Instructions:</code> → marks the beginning of the
-              instructions section
-            </li>
-            <li>
-              After <code>Instructions:</code>, each non-empty line is one step
-              in <code>recipe.instructions</code>, in order.
-            </li>
-          </ul>
+          <details class="line-explain">
+            <summary><strong>Line-by-line Explanation</strong> (click to expand)</summary>
+            <ul>
+              <li><code>Title:</code> the title shown in your recipe list.</li>
+              <li><code>FoodName:</code> the dish name.</li>
+              <li><code>Description:</code> a short description.</li>
+              <li><code>PrepTime:</code> preparation time in minutes (number).</li>
+              <li><code>CookTime:</code> cooking time in minutes (number).</li>
+              <li><code>Servings:</code> number of servings (number).</li>
+              <li><code>CoverImage:</code> an optional image URL for the cover.</li>
+              <li>Blank line.</li>
+              <li><code>Ingredients:</code> starts the ingredients section.</li>
+              <li>
+                After <code>Ingredients:</code>, each line is one ingredient in the format
+                <code>name,amount,unit</code>.<br />
+                Example: <code>egg,2,pcs</code> means ingredient <em>egg</em>, amount <em>2</em>, unit <em>pcs</em>.
+              </li>
+              <li>Blank line.</li>
+              <li><code>Instructions:</code> starts the instructions section.</li>
+              <li>After <code>Instructions:</code>, each non-empty line is one step, in order.</li>
+            </ul>
+          </details>
 
           <p>
             Make sure the section titles <strong>match exactly</strong>:
-            <code>Ingredients:</code> and <code>Instructions:</code>, with a
-            colon.
+            <code>Ingredients:</code> and <code>Instructions:</code>, with a colon.
           </p>
         </section>
 
-        <!-- Upload form block -->
-        <section class="card">
+        <!-- RIGHT: upload column (sidebar) -->
+        <aside class="card sidebar-column">
           <h2>Upload Your File</h2>
 
           <div class="upload-container">
@@ -178,12 +125,16 @@ Add the rest of the soy sauce and stir to combine.
               <p id="uploadStatus"></p>
             </div>
           </div>
-        </section>
-      </main>
-    </div>
+        </aside>
 
+      </div> <!-- end .two-column-layout -->
 
-    <!-- Data + logic scripts -->
-    <script type="module" src="upload.js"></script>
-  </body>
+    </main>
+</div>
+
+<!-- Data + logic scripts -->
+<script src="localData.js"></script>
+<script src="recipe.js"></script>
+<script src="upload.js"></script>
+</body>
 </html>
