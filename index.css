@@ -157,17 +157,17 @@ a {
 
 /* Specific Grid Layouts */
 /* Browser: Full width on top */
-.card.browser {
+.card.index-browser {
   grid-column: span 12;
   flex-direction: row;
   align-items: center;
   min-height: 400px;
 }
-.card.browser .text-side {
+.card.index-browser .text-side {
   flex: 1;
   padding-right: 40px;
 }
-.card.browser .visual-side {
+.card.index-browser .visual-side {
   flex: 1.5;
   height: 100%;
   background: #252525;
